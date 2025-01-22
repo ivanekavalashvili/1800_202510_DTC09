@@ -58,10 +58,10 @@ project-name/
 ---
 
 ## Contributors
-- Joshua Trepanier - BCIT CST Student with a passion for creating user-friendly applications. Fun fact: I enjoy playing ice hockey!
-- Connor - BCIT CST Student, Frontend enthusiast with a knack for creative design.
+- **Joshua Trepanier** - BCIT CST Student with a passion for creating user-friendly applications. Fun fact: I enjoy playing ice hockey!
+- **Connor Brown** - BCIT CST Student, Frontend enthusiast with a knack for creative design.
 
----
+- Hi, my name is **Ivane** and I'm a Pastafarian.
 
 ## Acknowledgments
 
@@ -94,3 +94,5 @@ Example:
 
 Example:
 This project is licensed under the MIT License. See the LICENSE file for details.
+
+
