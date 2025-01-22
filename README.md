@@ -59,7 +59,7 @@ project-name/
 
 ## Contributors
 
-- **Joshua Trepanier** - BCIT CST Student with a passion for creating user-friendly applications. Fun fact: I enjoy playing ice hockey!
+**Joshua Trepanier** - BCIT CST Student with a passion for creating user-friendly applications. Fun fact: I enjoy playing ice hockey!
 
 **Jonathan Engelhard** - BCIT CST Student with a passion for creating useful applications. Fun fact: I love rock climbing.
 
