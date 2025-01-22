@@ -59,7 +59,9 @@ project-name/
 
 ## Contributors
 **Jonathan Engelhard** - BCIT CST Student with a passion for creating user-friendly applications. Fun fact: is going to go rock climbing later.
+
 **Ivane** - Fun Fact: I'm a Pastafarian.
+
 **Connor Brown** - BCIT CST student with a nack for parallel programming and computer graphics.
 
 ---
