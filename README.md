@@ -58,9 +58,15 @@ project-name/
 ---
 
 ## Contributors
-- **Your Name** - BCIT CST Student with a passion for creating user-friendly applications. Fun fact: Loves solving Rubik's Cubes in under a minute.
-- **Teammate Name** - BCIT CST Student, Frontend enthusiast with a knack for creative design. Fun fact: Has a collection of over 50 houseplants.
-- **Ivane Kavalashvili** - BCIT CST student eager to become a good programmer. Fun fact: I ran 10k in 55 minutes yesterday.
+
+- **Joshua Trepanier** - BCIT CST Student with a passion for creating user-friendly applications. Fun fact: I enjoy playing ice hockey!
+
+**Jonathan Engelhard** - BCIT CST Student with a passion for creating useful applications. Fun fact: I love rock climbing.
+
+**Ivane Kavalashvili** - BCIT CST student trying to become a good programmer. Fun fact: I ran 10k in 56 minutes yesterday.
+
+**Connor Brown** - BCIT CST student with a nack for parallel programming and computer graphics.
+
 ---
 
 ## Acknowledgments
