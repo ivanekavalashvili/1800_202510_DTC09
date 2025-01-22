@@ -60,8 +60,7 @@ project-name/
 ## Contributors
 - **Joshua Trepanier** - BCIT CST Student with a passion for creating user-friendly applications. Fun fact: I enjoy playing ice hockey!
 - **Connor Brown** - BCIT CST Student, Frontend enthusiast with a knack for creative design.
-
-- Hi, my name is **Ivane** and I'm a Pastafarian.
+- **Ivane** - I'm a Pastafarian.
 
 ## Acknowledgments
 
