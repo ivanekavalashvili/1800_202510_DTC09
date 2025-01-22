@@ -65,7 +65,7 @@ project-name/
 
 **Ivane** - Fun Fact: I'm a Pastafarian.
 
-**Connor Brown** - BCIT CST student with a nack for parallel programming and computer graphics.
+**Connor Brown** - BCIT CST student with a nack for parallel programming and computer graphics. I have a wonderful dog named Poppy
 
 ---
 
