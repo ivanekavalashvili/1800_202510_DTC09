@@ -60,7 +60,7 @@ project-name/
 ## Contributors
 - **Jonathan Engelhard** - BCIT CST Student with a passion for creating user-friendly applications. Fun fact: is going to go rock climbing later.
 - **CoJoIv** - BCIT CST Student, Frontend enthusiast with a knack for creative design. Fun fact: an amalgamation of the rest of the team.
-
+**Ivane** - Fun Fact: I'm a Pastafarian.
 ---
 
 ## Acknowledgments
@@ -94,3 +94,5 @@ Example:
 
 Example:
 This project is licensed under the MIT License. See the LICENSE file for details.
+
+
