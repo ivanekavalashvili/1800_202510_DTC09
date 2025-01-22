@@ -58,8 +58,8 @@ project-name/
 ---
 
 ## Contributors
-- **Your Name** - BCIT CST Student with a passion for creating user-friendly applications. Fun fact: Loves solving Rubik's Cubes in under a minute.
-- **Teammate Name** - BCIT CST Student, Frontend enthusiast with a knack for creative design. Fun fact: Has a collection of over 50 houseplants.
+- **Jonathan Engelhard** - BCIT CST Student with a passion for creating user-friendly applications. Fun fact: is going to go rock climbing later.
+- **CoJoIv** - BCIT CST Student, Frontend enthusiast with a knack for creative design. Fun fact: an amalgamation of the rest of the team.
 
 ---
 
