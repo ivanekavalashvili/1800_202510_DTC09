@@ -60,7 +60,7 @@ project-name/
 ## Contributors
 - **Your Name** - BCIT CST Student with a passion for creating user-friendly applications. Fun fact: Loves solving Rubik's Cubes in under a minute.
 - **Teammate Name** - BCIT CST Student, Frontend enthusiast with a knack for creative design. Fun fact: Has a collection of over 50 houseplants.
-* Hi, my name is Ivane and I'm a Pastafarian.
+- **Ivane Kavalashvili** - BCIT CST student eager to become a good programmer. Fun fact: I ran 10k in 55 minutes yesterday.
 ---
 
 ## Acknowledgments
