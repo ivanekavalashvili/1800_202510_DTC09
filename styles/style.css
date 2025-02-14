@@ -22,6 +22,10 @@ body {
     justify-content: space-around;
 }
 
+.call-to-action-heading {
+    font-size: 32px;
+    font-weight: bold;
+}
 
 /* call to action button */
 .call-to-action-button {
