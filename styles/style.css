@@ -1,1 +1,68 @@
+:root {
+    /* colors */
+    --blue: #7aa7c7;
+}
 
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-size: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.call-to-action-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+
+/* call to action button */
+.call-to-action-button {
+    width: 200px;
+    background-color: #e1ecf4;
+    border-radius: 3px;
+    border: 1px solid var(--blue);
+    box-shadow: rgba(255, 255, 255, .7) 0 1px 0 0 inset;
+    box-sizing: border-box;
+    color: #39739d;
+    cursor: pointer;
+    display: inline-block;
+    font-family: -apple-system, system-ui, "Segoe UI", "Liberation Sans", sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.15385;
+    margin: 20px;
+    outline: none;
+    padding: 8px .8em;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: baseline;
+    white-space: nowrap;
+}
+
+.call-to-action-button:hover,
+.call-to-action-button:focus {
+    background-color: #b3d3ea;
+    color: #2c5777;
+}
+
+.call-to-action-button:focus {
+    box-shadow: 0 0 0 4px rgba(0, 149, 255, .15);
+}
+
+.call-to-action-button:active {
+    background-color: #a0c7e4;
+    box-shadow: none;
+    color: #2c5777;
+}
