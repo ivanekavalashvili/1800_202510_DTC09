@@ -19,13 +19,14 @@ body {
 .call-to-action-container {
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
     text-align: center;
+    margin: 30px;
 }
 
 .call-to-action-heading {
     font-size: 40px;
     font-weight: bold;
+    margin-bottom: 10px;
 }
 
 /* call to action button */
