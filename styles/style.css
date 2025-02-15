@@ -20,10 +20,11 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+    text-align: center;
 }
 
 .call-to-action-heading {
-    font-size: 32px;
+    font-size: 40px;
     font-weight: bold;
 }
 
@@ -39,13 +40,12 @@ body {
     cursor: pointer;
     display: inline-block;
     font-family: -apple-system, system-ui, "Segoe UI", "Liberation Sans", sans-serif;
-    font-size: 13px;
+    font-size: 28px;
     font-weight: 400;
-    line-height: 1.15385;
-    margin: 20px;
+    line-height: 30px;
     outline: none;
-    padding: 8px .8em;
-    position: relative;
+    padding: 20px 30px;
+    margin-inline: auto;
     text-align: center;
     text-decoration: none;
     user-select: none;
