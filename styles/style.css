@@ -1,8 +1,10 @@
 :root {
-    /* colors */
-    --blue: #7aa7c7;
+    --yale-blue: #003567;
+    --oxford-blue: #00264C;
+    --polynesian-blue: #00498A;
+    --ruddy-blue: #72A4DD;
+    --uranian-blue: #B2D5FF;
 }
-
 
 @tailwind base;
 @tailwind components;
