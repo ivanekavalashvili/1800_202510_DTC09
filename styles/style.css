@@ -3,6 +3,30 @@
     --blue: #7aa7c7;
 }
 
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.animated-background {
+    background-size: 200% 200%;
+    animation: gradient 15s ease infinite;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
 * {
     box-sizing: border-box;
     margin: 0;
