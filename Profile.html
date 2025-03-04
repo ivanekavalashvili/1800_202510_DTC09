@@ -64,9 +64,42 @@
         </ul>
     </nav>
 
-    <main id="report_page" style="display: none;" class="grid grid-rows-1 absolute justify-items-center">
-        <div class="bg-white w-50 h-100">
-            <p>Lorem ipsum dolor sit amet.</p>
+    <main id="report_page" style="display: none; top: 20%; left: 40%"
+        class="grid grid-rows-1 absolute justify-items-center">
+        <div class="bg-white w-75 h-100 border border-black rounded-2xl">
+            <div class="grid grid-cols-1 gap-3 justify-items-center">
+                <p class="text-4xl text-center">Why is this person being reported?</p>
+                <form class="grid grid-cols-1 px-2 pt-2 text-center justify-items-start">
+                    <div>
+                        <input type="radio" id="html" value="HTML">
+                        <label for="html" class="text-lg max-w-[30px]">Person has illegal content on their
+                            profile</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="html" value="HTML">
+                        <label for="html" class="text-lg max-w-[30px]">Person has an illegal profile picture</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="html" value="HTML">
+                        <label for="html" class="text-lg max-w-[30px]">Person has not followed through on
+                            agreement(s)</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="html" value="HTML">
+                        <label for="html" class="text-lg max-w-[30px]">Abusive communcation</label>
+                    </div>
+                </form>
+            </div>
+            <div class="grid grid-cols-2 justify-items-center pt-10">
+                <div class="pb-2">
+                    <button class="text-lg border border-black bg-white hover:bg-uranian_blue rounded px-1"
+                        onclick="reportbtn_close()">Cancel</button>
+                </div>
+                <div class="pb-2">
+                    <button class="text-lg border border-black bg-white hover:bg-uranian_blue rounded px-1"
+                        onclick="reportbtn_close()">Confirm</button>
+                </div>
+            </div>
         </div>
     </main>
 
@@ -75,7 +108,7 @@
             <div class="py-10">
                 <div class="pb-2">
                     <button class="border border-red-800 bg-white hover:bg-red-800 rounded px-1"
-                        onclick="reportbtn()">Report!</button>
+                        onclick="reportbtn_open()">Report!</button>
                 </div>
                 <img src="images/Blank_pfp.png" class="border border-black h-60 w-60">
             </div>
@@ -109,7 +142,7 @@
         <div>
             <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" viewBox="0 0 24 24" fill="none"
                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                class="icon icon-tabler icons-tabler-outline icon-tabler-message border border-3 border-gray-700 rounded-full">
+                class="icon icon-tabler icons-tabler-outline icon-tabler-message border border-3 border-gray-700 rounded-full bg-white hover:bg-uranian_blue">
                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                 <path d="M8 9h8" />
                 <path d="M8 13h6" />
