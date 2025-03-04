@@ -63,12 +63,44 @@
             </li>
         </ul>
     </nav>
-
+    <main id="confirm_page" style="display: none; top: 30%; left: 37%"
+        class="grid grid-rows-1 absolute justify-items-center">
+        <div class="bg-white w-100 h-50 border border-black rounded-2xl">
+            <div class="grid grid-cols-1 gap-3 justify-items-center">
+                <p class="text-3xl text-center px-1">Are you sure you want to submit the report?</p>
+            </div>
+            <div class="grid grid-cols-2 justify-items-center pt-10">
+                <div class="pb-2">
+                    <button class="text-lg border border-black bg-white hover:bg-uranian_blue rounded px-1"
+                        onclick="reportbtn_confirm_close()">Cancel</button>
+                </div>
+                <div class="pb-2">
+                    <button class="text-lg border border-black bg-white hover:bg-uranian_blue rounded px-1"
+                        onclick="reportbtn_confirm_close()">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </main>
+    <main id="final_page" style="display: none; top: 30%; left: 37%"
+        class="grid grid-rows-1 absolute justify-items-center">
+        <div class="bg-white w-100 h-50 border border-black rounded-2xl">
+            <div class="grid grid-cols-1 gap-3 justify-items-center">
+                <p class="text-3xl text-center px-1">Thank you for submitting a report. We will look into this shortly!
+                </p>
+            </div>
+            <div class="grid grid-cols-1 justify-items-center pt-10">
+                <div class="pb-2">
+                    <button class="text-lg border border-black bg-white hover:bg-uranian_blue rounded px-1"
+                        onclick="reportbtn_final_close()">Continue</button>
+                </div>
+            </div>
+        </div>
+    </main>
     <main id="report_page" style="display: none; top: 20%; left: 40%"
         class="grid grid-rows-1 absolute justify-items-center">
         <div class="bg-white w-75 h-100 border border-black rounded-2xl">
             <div class="grid grid-cols-1 gap-3 justify-items-center">
-                <p class="text-4xl text-center">Why is this person being reported?</p>
+                <p class="text-3xl text-center">Why is this person being reported?</p>
                 <form class="grid grid-cols-1 px-2 pt-2 text-center justify-items-start">
                     <div>
                         <input type="radio" id="html" value="HTML">
@@ -97,7 +129,7 @@
                 </div>
                 <div class="pb-2">
                     <button class="text-lg border border-black bg-white hover:bg-uranian_blue rounded px-1"
-                        onclick="reportbtn_close()">Confirm</button>
+                        onclick="reportbtn_confirm()">Confirm</button>
                 </div>
             </div>
         </div>
