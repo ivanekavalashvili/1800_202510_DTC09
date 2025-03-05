@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>My BCIT Project</title>
+    <meta name="comp1800 template" content="My 1800 App">
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Tailwind Library CSS CDN go here -->
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+
+    <!-- Other libraries go here -->
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // Import color scheming from tailwind config
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        yale_blue: '#003567',
+                        oxford_blue: '#00264C',
+                        polynesian_blue: '#00498A',
+                        ruddy_blue: '#72A4DD',
+                        uranian_blue: '#B2D5FF'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Link to styles of your own -->
+    <link rel="stylesheet" href="styles/style.css">
+
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="sticky top-0 z-50 bg-uranian_blue shadow-md">
+        <ul class="flex flex-row justify-between items-center p-3 max-w-7xl mx-auto">
+            <li class="p-2 hover:bg-gray-100 rounded-full transition duration-300">
+                <a href="index.html" class="flex items-center space-x-2">
+                    <img src="BB.jpg" alt="Barter Base Logo" class="rounded-full w-10 h-10">
+                    <span class="font-bold text-xl hidden md:block">Barter Base</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <section class="forms-section">
+        <div class="forms">
+            <div class="form-wrapper is-active">
+                <button type="button" class="switcher switcher-login">
+                    Login
+                    <span class="underline"></span>
+                </button>
+                <form class="form form-login">
+                    <fieldset>
+                        <legend>Please, enter your email and password for login.</legend>
+                        <div class="input-block">
+                            <label for="login-email">E-mail</label>
+                            <input id="login-email" type="email" required>
+                        </div>
+                        <div class="input-block">
+                            <label for="login-password">Password</label>
+                            <input id="login-password" type="password" required>
+                        </div>
+                    </fieldset>
+                    <button type="submit" class="btn-login">Login</button>
+                </form>
+            </div>
+            <div class="form-wrapper">
+                <button type="button" class="switcher switcher-signup">
+                    Sign Up
+                    <span class="underline"></span>
+                </button>
+                <form class="form form-signup">
+                    <fieldset>
+                        <legend>Please, enter your email, password and password confirmation for sign up.</legend>
+                        <div class="input-block">
+                            <label for="signup-email">E-mail</label>
+                            <input id="signup-email" type="email" required>
+                        </div>
+                        <div class="input-block">
+                            <label for="signup-password">Password</label>
+                            <input id="signup-password" type="password" required>
+                        </div>
+                        <div class="input-block">
+                            <label for="signup-password-confirm">Confirm password</label>
+                            <input id="signup-password-confirm" type="password" required>
+                        </div>
+                    </fieldset>
+                    <button type="submit" class="btn-signup">Continue</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Footer -->
+    <!-- TODO: blend this a bit better? -->
+    <footer class="fixed bottom-0 left-0 w-full bg-oxford_blue text-uranian_blue py-6">
+        <div class="container mx-auto px-4 text-center">
+            <p class="text-sm">&copy; 2025 Barter Base. All rights reserved.</p>
+        </div>
+    </footer>
+    <script src="scripts/signup_form.js"></script>
+</body>
+
+</html>
