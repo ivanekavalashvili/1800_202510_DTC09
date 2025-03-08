@@ -17,7 +17,7 @@ function list_categories() {
             <div class="bg-white rounded-lg shadow p-6">
                 <h1 class="hover:bg-gray-50 p-2 rounded font-semibold transition"><a href="#">${Object.keys(example_dictionary)[key]}</a></h1>
                 <div class="flex items-center space-x-4">
-                    <div class="flex space-x-4 pt-4 border-t flex-wrap" id="${Object.keys(example_dictionary)[key]}">
+                    <div class="flex pt-4 border-t flex-wrap" id="${Object.keys(example_dictionary)[key]}">
                     </div>
                 </div>
             </div>
@@ -29,7 +29,7 @@ function list_categories() {
             console.log(item)
             $("#" + Object.keys(example_dictionary)[key]).append(`
                 <button
-                    class="bg-uranian_blue text-oxford_blue px-8 py-3 rounded-full font-semibold hover:bg-ruddy_blue hover:text-yale_blue transition duration-300 my-3">
+                    class="bg-uranian_blue text-oxford_blue px-8 py-3 rounded-full font-semibold hover:bg-ruddy_blue hover:text-yale_blue transition duration-300 my-3 mr-3">
                     ${unwrapped_array[item]}
                 </button>
                 `)
