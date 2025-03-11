@@ -11,8 +11,7 @@ tailwind.config = {
             }
         }
     }
-}
-
+};
 
 const firebaseConfig = {
     apiKey: "YOUR_API_KEY",
