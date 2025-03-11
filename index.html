@@ -12,6 +12,11 @@
     <!-- Tailwind Library CSS CDN go here -->
     <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
 
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
+
     <!-- Other libraries go here -->
 
     <!-- Tailwind CSS CDN -->
@@ -143,12 +148,15 @@
     </main>
 
     <!-- Footer -->
-    <!-- TODO: blend this a bit better? -->
     <footer class="fixed bottom-0 left-0 w-full bg-oxford_blue text-uranian_blue py-6">
         <div class="container mx-auto px-4 text-center">
             <p class="text-sm">&copy; 2025 Barter Base. All rights reserved.</p>
         </div>
     </footer>
+
+    <!-- Firebase initialization -->
+    <script src="scripts/firebaseAPI_dtc09.js"></script>
+    <script src="scripts/script.js"></script>
 </body>
 
 </html>

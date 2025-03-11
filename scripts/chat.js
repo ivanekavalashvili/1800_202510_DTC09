@@ -13,20 +13,6 @@ tailwind.config = {
     }
 };
 
-const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "YOUR_AUTH_DOMAIN",
-    projectId: "YOUR_PROJECT_ID",
-    storageBucket: "YOUR_STORAGE_BUCKET",
-    messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-    appId: "YOUR_APP_ID"
-};
-
-
-firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
-const db = firebase.firestore();
-
 const authStatus = document.getElementById('auth-status');
 const loginMessage = document.getElementById('login-message');
 const loginBtn = document.getElementById('login-btn');
@@ -44,7 +30,7 @@ auth.onAuthStateChanged(user => {
         loginBtn.classList.add('hidden');
         messageInput.disabled = false;
         messageForm.querySelector('button').disabled = false;
-        chatUserName.textContent = user.displayName || 'Chat';
+        chatUserName.textContent = user.displayName || user.email || 'Chat';
         chatStatus.textContent = 'Online';
         if (user.photoURL) {
             chatUserAvatar.src = user.photoURL;
@@ -64,8 +50,8 @@ auth.onAuthStateChanged(user => {
 });
 
 loginBtn.addEventListener('click', () => {
-    const provider = new firebase.auth.GoogleAuthProvider();
-    auth.signInWithPopup(provider);
+    // Redirect to login page
+    window.location.href = 'login.html';
 });
 
 messageForm.addEventListener('submit', e => {
@@ -80,7 +66,7 @@ messageForm.addEventListener('submit', e => {
     db.collection('messages').add({
         text: message,
         userId: user.uid,
-        userName: user.displayName || 'Anonymous',
+        userName: user.displayName || user.email || 'Anonymous',
         userPhoto: user.photoURL || '',
         timestamp: firebase.firestore.FieldValue.serverTimestamp()
     })
@@ -109,7 +95,6 @@ function loadMessages() {
                 return;
             }
 
-
             snapshot.forEach(doc => {
                 const message = doc.data();
                 const messageElement = createMessageElement(message);
@@ -121,7 +106,6 @@ function loadMessages() {
             console.error("Error loading messages: ", error);
         });
 }
-
 
 function createMessageElement(message) {
     const currentUser = auth.currentUser;

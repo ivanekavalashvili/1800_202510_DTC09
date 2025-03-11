@@ -12,7 +12,10 @@
     <!-- Tailwind Library CSS CDN go here -->
     <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
 
-    <!-- Other libraries go here -->
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
 
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -58,7 +61,7 @@
                     Login
                     <span class="underline"></span>
                 </button>
-                <form class="form form-login">
+                <form class="form form-login" id="login-form">
                     <fieldset>
                         <legend>Please, enter your email and password for login.</legend>
                         <div class="input-block">
@@ -69,6 +72,7 @@
                             <label for="login-password">Password</label>
                             <input id="login-password" type="password" required>
                         </div>
+                        <div id="login-error" class="text-red-500 mt-2 text-center hidden"></div>
                     </fieldset>
                     <button type="submit" class="btn-login">Login</button>
                 </form>
@@ -78,7 +82,7 @@
                     Sign Up
                     <span class="underline"></span>
                 </button>
-                <form class="form form-signup">
+                <form class="form form-signup" id="signup-form">
                     <fieldset>
                         <legend>Please, enter your email, password and password confirmation for sign up.</legend>
                         <div class="input-block">
@@ -93,6 +97,7 @@
                             <label for="signup-password-confirm">Confirm password</label>
                             <input id="signup-password-confirm" type="password" required>
                         </div>
+                        <div id="signup-error" class="text-red-500 mt-2 text-center hidden"></div>
                     </fieldset>
                     <button type="submit" class="btn-signup">Continue</button>
                 </form>
@@ -102,12 +107,15 @@
 
 
     <!-- Footer -->
-    <!-- TODO: blend this a bit better? -->
     <footer class="fixed bottom-0 left-0 w-full bg-oxford_blue text-uranian_blue py-6">
         <div class="container mx-auto px-4 text-center">
             <p class="text-sm">&copy; 2025 Barter Base. All rights reserved.</p>
         </div>
     </footer>
+
+    <!-- Firebase initialization -->
+    <script src="scripts/firebaseAPI_dtc09.js"></script>
+    <script src="scripts/authentication.js"></script>
     <script src="scripts/signup_form.js"></script>
 </body>
 
