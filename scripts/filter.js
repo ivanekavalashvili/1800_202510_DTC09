@@ -15,7 +15,7 @@ function list_categories_from_database(collection) {
                 var currentSkill = skill.data();
                 let newskill = sectionTemplate.content.cloneNode(true);
                 newskill.querySelector('.skillTitle').innerHTML = currentSkill;
-                document.getElementById("go-here").appendChild(newcard);
+                document.getElementById("go-here").appendChild(newskill);
             })
         })
 }
