@@ -51,4 +51,17 @@ function saveUserInfo() {
     document.getElementById("profile_aboutme").disabled = true
     document.getElementById("profile_credentials").disabled = true
     document.getElementById("profile_interests").disabled = true
+
+    useraboutme = document.getElementById('profile_aboutme').value; 
+    usercredential = document.getElementById('profile_credentials').value; 
+    userinterests = document.getElementById('profile_interests').value;   
+
+    currentUser.update({
+        about_me: useraboutme,
+        credentials: usercredential,
+        interests: userinterests
+    })
+        .then(() => {
+            console.log("Document successfully updated!");
+        })
 }
