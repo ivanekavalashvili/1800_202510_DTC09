@@ -6,6 +6,20 @@ example_dictionary = {
     "Music": ["Producing", "Piano", "Guitar", "Violin", "Drums"]
 };
 
+function list_categories_from_database(collection) {
+    let sectionTemplate = document.getElementById("skillSectionTemplate");
+    console.log(sectionTemplate)
+    db.collection(collection).get()
+        .then(allSkills => {
+            allSkills.forEach(skill => {
+                var currentSkill = skill.data();
+                let newskill = sectionTemplate.content.cloneNode(true);
+                newskill.querySelector('.skillTitle').innerHTML = currentSkill;
+                document.getElementById("go-here").appendChild(newcard);
+            })
+        })
+}
+
 function list_categories() {
     for (key in Object.keys(example_dictionary)) {
         $("#Categories").append(`
@@ -36,5 +50,7 @@ function list_categories() {
         }
     }
 }
+
+list_categories_from_database("skills")
 
 list_categories()
