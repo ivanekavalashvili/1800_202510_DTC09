@@ -12,7 +12,7 @@ function list_categories_from_database(collection) {
     db.collection(collection).get()
         .then(allSkills => {
             allSkills.forEach(skill => {
-                var currentSkill = skill.data();
+                var currentSkill = skill.data().skills;
                 let newskill = sectionTemplate.content.cloneNode(true);
                 newskill.querySelector('.skillTitle').innerHTML = currentSkill;
                 document.getElementById("go-here").appendChild(newskill);
@@ -40,7 +40,6 @@ function list_categories() {
         let unwrapped_array = example_dictionary[Object.keys(example_dictionary)[key]]
         
         for (item in unwrapped_array) {
-            console.log(item)
             $("#" + Object.keys(example_dictionary)[key]).append(`
                 <button
                     class="bg-uranian_blue text-oxford_blue px-8 py-3 rounded-full font-semibold hover:bg-ruddy_blue hover:text-yale_blue transition duration-300 my-3 mr-3">
