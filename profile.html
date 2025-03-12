@@ -145,25 +145,28 @@
             <div class="py-10">
                 <div class="pb-2">
                     <button class="border border-red-800 bg-white hover:bg-red-800 rounded px-1"
-                        onclick="reportbtn_open()">Report!</button>
-                    <button class="border bg-white rounded px-1">Edit Profile</button>
+                        onclick="reportbtn_open()">Report</button>
+                    <button class="border bg-white rounded px-1"
+                    onclick="editUserInfo()">Edit Profile</button>
+                    <button class="border bg-white rounded px-1"
+                    onclick="saveUserInfo()">Save changes</button>
                 </div>
                 <img src="images/Blank_pfp.png" class="border border-black h-60 w-60">
             </div>
 
             <div class="py-10">
                 <p class="text-4xl pb-2">My Credentials!</p>
-                <input class="text-xl m-w-[500px]" id="profile_credentials">
+                <input class="text-xl m-w-[500px]" id="profile_credentials" disabled>
             </div>
         </section>
         <section class="grid grid-rows-1 md:grid-rows-2 py-5 justify-items-center md:justify-items-end">
             <div class="py-10">
                 <p class="text-4xl pb-2">About me!</p>
-                <input class="text-xl m-w-[500px]" id="profile_aboutme">
+                <input class="text-xl m-w-[500px]" id="profile_aboutme" disabled>
             </div>
             <div class="py-10">
                 <p class="text-4xl pb-2">My Interests!</p>
-                <input class="text-xl m-w-[500px]" id="profile_interests">
+                <input class="text-xl m-w-[500px]" id="profile_interests" disabled>
             </div>
 
         </section>

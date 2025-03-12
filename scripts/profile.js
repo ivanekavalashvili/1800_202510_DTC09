@@ -40,3 +40,15 @@ function populateUserInfo() {
 
 //call the function to run it 
 populateUserInfo();
+
+function editUserInfo() {
+    document.getElementById("profile_aboutme").disabled = false
+    document.getElementById("profile_credentials").disabled = false
+    document.getElementById("profile_interests").disabled = false
+}
+
+function saveUserInfo() {
+    document.getElementById("profile_aboutme").disabled = true
+    document.getElementById("profile_credentials").disabled = true
+    document.getElementById("profile_interests").disabled = true
+}
