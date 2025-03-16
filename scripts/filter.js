@@ -6,26 +6,31 @@ example_dictionary = {
     "Music": ["Producing", "Piano", "Guitar", "Violin", "Drums"]
 };
 
-function list_categories_from_database(collection) {
+function list_from_database(collection) {
     let sectionTemplate = document.getElementById("skillSectionTemplate");
     console.log(sectionTemplate)
     db.collection(collection).get()
-        .then(allSkills => {
-            allSkills.forEach(skill => {
-                var currentSkill = skill.data().skills;
-                let newskill = sectionTemplate.content.cloneNode(true);
-                newskill.querySelector('.skillTitle').innerHTML = currentSkill;
-                document.getElementById("go-here").appendChild(newskill);
+        .then(allCategories => {
+            allCategories.forEach(category => {
+                var currentCategory = category.data().category;
+                let newcategory = sectionTemplate.content.cloneNode(true);
+                newcategory.querySelector('.categoryTitle').innerHTML = currentCategory;
+                document.getElementById("category-go-here").appendChild(newcategory);
+                $("#sections").append(`
+                <div class="bg-white rounded-lg shadow p-6">
+                    <h1 class="hover:bg-gray-50 p-2 rounded font-semibold transition"><a href="#">${currentCategory}</a></h1>
+                    <div class="flex items-center space-x-4">
+                        <div class="flex pt-4 border-t flex-wrap" id="${currentCategory}">
+                        </div>
+                    </div>
+                </div>
+                `)
             })
         })
+    
 }
 
 function list_categories() {
-    for (key in Object.keys(example_dictionary)) {
-        $("#Categories").append(`
-            <li class="hover:bg-gray-50 p-2 rounded transition" > <a href="#">${Object.keys(example_dictionary)[key]}</a></li>
-            `)
-    }
     for (key in Object.keys(example_dictionary)) {
         $("#sections").append(`
             <div class="bg-white rounded-lg shadow p-6">
@@ -38,7 +43,7 @@ function list_categories() {
         `)
         console.log(Object.keys(example_dictionary)[key])
         let unwrapped_array = example_dictionary[Object.keys(example_dictionary)[key]]
-        
+
         for (item in unwrapped_array) {
             $("#" + Object.keys(example_dictionary)[key]).append(`
                 <button
@@ -50,6 +55,6 @@ function list_categories() {
     }
 }
 
-list_categories_from_database("skills")
+list_from_database("Categories")
 
 list_categories()
