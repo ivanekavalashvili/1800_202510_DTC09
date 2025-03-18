@@ -53,7 +53,8 @@ function list_categories_from_database(collection, user) {
                                     db.collection("userSkills").add({
                                         proficency: "beginner",
                                         userID: user.uid,
-                                        skill: currentSkill
+                                        skill: currentSkill,
+                                        direction: direction
                                     })
 
                                 })
@@ -64,8 +65,18 @@ function list_categories_from_database(collection, user) {
         })
 }
 
+
+
 auth.onAuthStateChanged(user => {
-    if (user) {list_categories_from_database("Categories", user)}})
+    if (user) {
+        document.getElementById("offerBtn").addEventListener("click", () => {
+            direction = "Offering"
+        })
+        document.getElementById("requestBtn").addEventListener("click", () => {
+            direction = "Requesting"
+        })
+        direction = "Offering"
+        list_categories_from_database("Categories", user, direction)}})
 
 
 
