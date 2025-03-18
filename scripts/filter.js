@@ -7,13 +7,13 @@ example_dictionary = {
 };
 
 whatImAdding = "Electronics"
-
 function add_skills_to_database() {
     for (skill in example_dictionary.Electronics) {
         db.collection("skills").add({
             categoryName: whatImAdding,
             skill: example_dictionary.Electronics[skill]
-    })}
+        })
+    }
 }
 
 function list_categories_from_database(collection) {
@@ -44,12 +44,18 @@ function list_categories_from_database(collection) {
                             if (skillCategory == currentCategory) {
                                 console.log(currentSkill)
                                 $("#" + currentCategory).append(`
-                                <button
+                                <button id="${currentSkill}"
                                     class="bg-uranian_blue text-oxford_blue px-8 py-3 rounded-full font-semibold 
                                     hover:bg-ruddy_blue hover:text-yale_blue transition duration-300 my-3 mr-3">
                                     ${currentSkill}
                                 </button>
-                            `)
+                                `)
+                                document.getElementById(currentSkill).addEventListener("click", () => {
+                                    db.collection("userSkills").add({
+                                        userID: user.uID,
+                                        skill: currentSkill
+                                    })
+                                })
                             }
                         })
                     })
