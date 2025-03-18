@@ -6,17 +6,16 @@ example_dictionary = {
     "Music": ["Producing", "Piano", "Guitar", "Violin", "Drums"]
 };
 
-whatImAdding = "Electronics"
 function add_skills_to_database() {
-    for (skill in example_dictionary.Electronics) {
+    for (skill in example_dictionary.Art) {
         db.collection("skills").add({
-            categoryName: whatImAdding,
-            skill: example_dictionary.Electronics[skill]
+            categoryName: "Art",
+            skill: example_dictionary.Art[skill]
         })
     }
 }
 
-function list_categories_from_database(collection) {
+function list_categories_from_database(collection, user) {
     let sectionTemplate = document.getElementById("skillSectionTemplate");
     console.log(sectionTemplate)
     db.collection(collection).get()
@@ -52,9 +51,12 @@ function list_categories_from_database(collection) {
                                 `)
                                 document.getElementById(currentSkill).addEventListener("click", () => {
                                     db.collection("userSkills").add({
-                                        userID: user.uID,
-                                        skill: currentSkill
+                                        proficency: "beginner",
+                                        userID: user.uid,
+                                        skill: currentSkill,
+                                        direction: direction
                                     })
+
                                 })
                             }
                         })
@@ -62,6 +64,21 @@ function list_categories_from_database(collection) {
             })
         })
 }
+
+
+
+auth.onAuthStateChanged(user => {
+    if (user) {
+        document.getElementById("offerBtn").addEventListener("click", () => {
+            direction = "Offering"
+        })
+        document.getElementById("requestBtn").addEventListener("click", () => {
+            direction = "Requesting"
+        })
+        direction = "Offering"
+        list_categories_from_database("Categories", user, direction)}})
+
+
 
 
 // function list_categories() {
@@ -89,4 +106,3 @@ function list_categories_from_database(collection) {
 //     }
 // }
 
-list_categories_from_database("Categories")
