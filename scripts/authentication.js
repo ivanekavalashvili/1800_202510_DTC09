@@ -68,6 +68,9 @@ document.addEventListener('DOMContentLoaded', function () {
                     const user = userCredential.user;
                     return db.collection('users').doc(user.uid).set({
                         email: user.email,
+                        interests: 'Add your interests here!',
+                        credentials: 'Add your credentials here!',
+                        about_me: 'Add things about you here!',
                         createdAt: firebase.firestore.FieldValue.serverTimestamp(),
                     });
                 })
@@ -86,12 +89,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
         });
     }
+    // This needs to get changed at some point
 
     // Check authentication state
-    auth.onAuthStateChanged(user => {
-        if (user && window.location.pathname.includes('login.html')) {
-            // User is signed in and on login page, redirect to home
-            window.location.href = 'index.html';
-        }
-    });
+    // auth.onAuthStateChanged(user => {
+    // if (user && window.location.pathname.includes('login.html')) {
+    //     // User is signed in and on login page, redirect to home
+    //     window.location.href = 'index.html';
+    // }
+    // });
 });
