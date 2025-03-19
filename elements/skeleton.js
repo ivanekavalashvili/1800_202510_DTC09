@@ -45,6 +45,7 @@ function loadChatPopup() {
             right: 20px;
             width: 400px;
             max-height: 80vh;
+            background-color: white;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
             border-radius: 10px;
             overflow: hidden;
