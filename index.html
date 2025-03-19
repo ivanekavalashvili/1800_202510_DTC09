@@ -17,8 +17,6 @@
     <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
 
-    <!-- Other libraries go here -->
-
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -40,7 +38,6 @@
 
     <!-- Link to styles of your own -->
     <link rel="stylesheet" href="styles/style.css">
-    <script src="elements/skeleton.js"></script>
 </head>
 
 <body class="bg-gray-100 min-h-screen pb-20">
@@ -129,6 +126,9 @@
     <!-- Firebase initialization -->
     <script src="scripts/firebaseAPI_dtc09.js"></script>
     <script src="scripts/script.js"></script>
+
+    <!-- Load skeleton last so it can inject chat after page content -->
+    <script src="elements/skeleton.js"></script>
 </body>
 
 </html>

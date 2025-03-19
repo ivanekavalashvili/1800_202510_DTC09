@@ -1,0 +1,46 @@
+<!-- Chat header -->
+<div class="p-4 border-b flex justify-between items-center bg-uranian_blue">
+    <div class="flex items-center">
+        <img id="chat-user-avatar" src="images/Blank_pfp.png" alt="User Avatar" class="w-10 h-10 rounded-full mr-3">
+        <div>
+            <h2 id="chat-user-name" class="font-semibold">Chat</h2>
+            <p id="chat-status" class="text-sm text-gray-500">Loading...</p>
+        </div>
+    </div>
+    <button onclick="toggleChat()" class="text-gray-500 hover:text-gray-700">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+    </button>
+</div>
+
+<!-- Auth status container -->
+<div id="auth-status" class="bg-white p-4 mb-4 text-center">
+    <p id="login-message">Please sign in to chat</p>
+    <button id="login-btn" class="bg-polynesian_blue text-white px-4 py-2 rounded mt-2 hidden">
+        Sign in
+    </button>
+</div>
+
+<!-- Messages container -->
+<div id="messages" class="h-80 overflow-y-auto p-4 space-y-4">
+    <!-- Messages will be inserted here -->
+    <div class="flex justify-center">
+        <p class="text-gray-500">Start chatting now!</p>
+    </div>
+</div>
+
+<!-- Message input -->
+<form id="message-form" class="border-t p-4">
+    <div class="flex space-x-2">
+        <input id="message-input" type="text" placeholder="Type a message..."
+            class="flex-1 bg-gray-100 rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-polynesian_blue"
+            disabled>
+        <button type="submit" class="bg-polynesian_blue text-white px-4 py-2 rounded-full disabled:opacity-50" disabled>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path
+                    d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
+            </svg>
+        </button>
+    </div>
+</form>
