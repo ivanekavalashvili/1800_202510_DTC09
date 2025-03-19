@@ -40,43 +40,13 @@
 
     <!-- Link to styles of your own -->
     <link rel="stylesheet" href="styles/style.css">
-
+    <script src="elements/skeleton.js"></script>
 </head>
 
 <body class="bg-gray-100 min-h-screen pb-20">
     <!-- Navbar -->
-    <nav class="sticky top-0 z-50 bg-uranian_blue shadow-md">
-        <ul class="flex flex-row justify-between items-center p-3 max-w-7xl mx-auto">
-            <li class="p-2 hover:bg-gray-100 rounded-full transition duration-300">
-                <a href="index.html" class="flex items-center space-x-2">
-                    <img src="BB.jpg" alt="Barter Base Logo" class="rounded-full w-10 h-10">
-                    <span class="font-bold text-xl hidden md:block">Barter Base</span>
-                </a>
-            </li>
-            <li class="flex-1 max-w-xl mx-4">
-                <div class="relative flex items-center">
-                    <input type="text" placeholder="Search Barter Base..."
-                        class="w-full py-2 px-4 bg-gray-100 rounded-full focus:outline-none focus:ring-2 focus:ring-polynesian_blue">
-                    <svg class="w-5 h-5 absolute right-3 text-gray-400" xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                        <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linecap="round"
-                            stroke-linejoin="round" stroke-width="2" />
-                    </svg>
-                </div>
-            </li>
-            <li class="flex items-center space-x-4">
-                <a href="login.html" class="p-2 hover:bg-gray-100 rounded-full transition duration-300">
-                    <svg class="w-8 h-8 text-gray-700" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                        stroke-width="2">
-                        <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"></path>
-                        <path d="M12 10m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
-                        <path d="M6.168 18.849a4 4 0 0 1 3.832 -2.849h4a4 4 0 0 1 3.834 2.855"></path>
-                    </svg>
-                </a>
-            </li>
-        </ul>
-    </nav>
+    <div id="navbar"></div>
+
     <!-- Hero Bar -->
     <!-- Gradient taken from: https://tailwindflex.com/@anonymous/animated-gradient-background -->
     <header class="relative overflow-hidden">
@@ -148,11 +118,7 @@
     </main>
 
     <!-- Footer -->
-    <footer class="fixed bottom-0 left-0 w-full bg-oxford_blue text-uranian_blue py-6">
-        <div class="container mx-auto px-4 text-center">
-            <p class="text-sm">&copy; 2025 Barter Base. All rights reserved.</p>
-        </div>
-    </footer>
+    <div id="footer"></div>
 
     <!-- Firebase initialization -->
     <script src="scripts/firebaseAPI_dtc09.js"></script>

@@ -31,43 +31,13 @@
     <script src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script>
     <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.css" />
     <link rel="stylesheet" href="styles/style.css">
-
+    <script src="elements/skeleton.js"></script>
 </head>
 
 <body class="bg-gray-100 pb-20">
     <!-- Navbar -->
-    <nav class="sticky top-0 z-50 bg-uranian_blue shadow-md">
-        <ul class="flex flex-row justify-between items-center p-3 max-w-7xl mx-auto">
-            <li class="p-2 hover:bg-gray-100 rounded-full transition duration-300">
-                <a href="index.html" class="flex items-center space-x-2">
-                    <img src="BB.jpg" alt="Barter Base Logo" class="rounded-full w-10 h-10">
-                    <span class="font-bold text-xl hidden md:block">Barter Base</span>
-                </a>
-            </li>
-            <li class="flex-1 max-w-xl mx-4">
-                <div class="relative flex items-center">
-                    <input type="text" placeholder="Search Barter Base..."
-                        class="w-full py-2 px-4 bg-gray-100 rounded-full focus:outline-none focus:ring-2 focus:ring-polynesian_blue">
-                    <svg class="w-5 h-5 absolute right-3 text-gray-400" xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                        <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linecap="round"
-                            stroke-linejoin="round" stroke-width="2" />
-                    </svg>
-                </div>
-            </li>
-            <li class="flex items-center space-x-4">
-                <a href="login.html" class="p-2 hover:bg-gray-100 rounded-full transition duration-300">
-                    <svg class="w-8 h-8 text-gray-700" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                        stroke-width="2">
-                        <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"></path>
-                        <path d="M12 10m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
-                        <path d="M6.168 18.849a4 4 0 0 1 3.832 -2.849h4a4 4 0 0 1 3.834 2.855"></path>
-                    </svg>
-                </a>
-            </li>
-        </ul>
-    </nav>
+    <div id="navbar"></div>
+
     <main id="confirm_page" style="display: none; top: 30%; left: 37%"
         class="grid grid-rows-1 absolute justify-items-center">
         <div class="bg-white w-100 h-50 border border-black rounded-2xl">
@@ -179,23 +149,7 @@
         </section>
     </main>
     <!-- Footer -->
-    <button class="self-end px-20 fixed bottom-20">
-        <div>
-            <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                class="icon icon-tabler icons-tabler-outline icon-tabler-message border border-3 border-gray-700 rounded-full bg-white hover:bg-uranian_blue">
-                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                <path d="M8 9h8" />
-                <path d="M8 13h6" />
-                <path d="M18 4a3 3 0 0 1 3 3v8a3 3 0 0 1 -3 3h-5l-5 3v-3h-2a3 3 0 0 1 -3 -3v-8a3 3 0 0 1 3 -3h12z" />
-            </svg>
-        </div>
-    </button>
-    <footer class="fixed bottom-0 left-0 w-full bg-oxford_blue text-uranian_blue py-6">
-        <div class="container mx-auto px-4 text-center">
-            <p class="text-sm">&copy; 2025 Barter Base. All rights reserved.</p>
-        </div>
-    </footer>
+    <div id="footer"></div>
 
     <script src="scripts/firebaseAPI_dtc09.js"></script>
     <script src="scripts/script.js"></script>
