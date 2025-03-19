@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>My BCIT Project</title>
+    <title>Barter Base - Trade, Barter, Thrive</title>
     <meta name="comp1800 template" content="My 1800 App">
 
     <!-- Required meta tags -->
@@ -47,75 +47,81 @@
     <!-- Navbar -->
     <div id="navbar"></div>
 
-    <!-- Hero Bar -->
-    <!-- Gradient taken from: https://tailwindflex.com/@anonymous/animated-gradient-background -->
-    <header class="relative overflow-hidden">
-        <div
-            class="animated-background absolute inset-0 bg-gradient-to-r from-yale_blue via-polynesian_blue to-ruddy_blue">
-        </div>
+    <!-- Hero Section -->
+    <header class="relative overflow-hidden bg-yale_blue">
         <div class="relative max-w-7xl mx-auto py-24 px-4 sm:px-6 lg:px-8 text-center">
-            <h1 class="text-5xl font-bold text-white mb-6">Welcome to Barter Base</h1>
-            <p class="text-xl text-white/90 mb-8">A platform for bartering goods, services & skills.</p>
-            <button
-                class="bg-uranian_blue text-oxford_blue px-8 py-3 rounded-full font-semibold hover:bg-ruddy_blue hover:text-yale_blue transition duration-300">
-                Start Bartering
-            </button>
+            <h1 class="text-5xl font-bold text-white mb-6">Discover a World of Bartering</h1>
+            <p class="text-xl text-white/90 mb-8">Trade goods, services, and skills with a vibrant community.</p>
+            <div class="flex justify-center space-x-4">
+                <a href="filter.html"
+                    class="bg-uranian_blue text-oxford_blue px-8 py-3 rounded-full font-semibold hover:bg-ruddy_blue hover:text-yale_blue transition duration-300">
+                    Explore Offers
+                </a>
+                <a href="filter.html"
+                    class="bg-transparent border-2 border-uranian_blue text-uranian_blue px-8 py-3 rounded-full font-semibold hover:bg-uranian_blue hover:text-oxford_blue transition duration-300">
+                    Post Your Trade
+                </a>
+            </div>
         </div>
     </header>
 
-    <main class="max-w-7xl mx-auto px-4 py-8 grid grid-cols-1 md:grid-cols-3 gap-8">
-        <!-- Catagories Bar-->
-        <aside class="hidden md:block">
-            <div class="bg-white rounded-lg shadow p-6">
-                <h2 class="font-semibold text-lg mb-4">Categories</h2>
-                <ul class="space-y-2">
-                    <li class="hover:bg-gray-50 p-2 rounded transition"><a href="#">📱 Electronics</a></li>
-                    <li class="hover:bg-gray-50 p-2 rounded transition"><a href="#">🎨 Art & Design</a></li>
-                    <li class="hover:bg-gray-50 p-2 rounded transition"><a href="#">🔧 Services</a></li>
-                    <li class="hover:bg-gray-50 p-2 rounded transition"><a href="#">📚 Education</a></li>
-                </ul>
+    <!-- Featured Categories -->
+    <section class="max-w-7xl mx-auto px-4 py-12">
+        <h2 class="text-3xl font-semibold text-center mb-8">Popular Categories</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                <img src="https://picsum.photos/600/400" alt="Electronics" class="w-full h-48 object-cover">
+                <div class="p-4">
+                    <h3 class="font-semibold text-lg mb-2">Electronics</h3>
+                    <p class="text-gray-600">Trade your gadgets, components, and tech skills.</p>
+                    <a href="filter.html" class="text-polynesian_blue hover:text-ruddy_blue">Explore Electronics →</a>
+                </div>
             </div>
-        </aside>
+            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                <img src="https://picsum.photos/600/400" alt="Art & Design" class="w-full h-48 object-cover">
+                <div class="p-4">
+                    <h3 class="font-semibold text-lg mb-2">Art & Design</h3>
+                    <p class="text-gray-600">Barter creative services, handmade crafts, and artistic talents.</p>
+                    <a href="filter.html" class="text-polynesian_blue hover:text-ruddy_blue">Discover Art & Design →</a>
+                </div>
+            </div>
+            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                <img src="https://picsum.photos/600/400" alt="Services" class="w-full h-48 object-cover">
+                <div class="p-4">
+                    <h3 class="font-semibold text-lg mb-2">Services</h3>
+                    <p class="text-gray-600">Offer your expertise in exchange for other valuable services.</p>
+                    <a href="filter.html" class="text-polynesian_blue hover:text-ruddy_blue">Find Services →</a>
+                </div>
+            </div>
+        </div>
+    </section>
 
-        <!-- Main Feed -->
-        <section class="md:col-span-2 space-y-4">
-            <div class="bg-white rounded-lg shadow p-6">
-                <div class="flex items-center space-x-4">
-                    <img src="BB.jpg" alt="Your Profile" class="w-10 h-10 rounded-full">
-                    <input type="text" placeholder="What would you like to barter today?"
-                        class="w-full bg-gray-100 rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
-                </div>
+    <!-- Testimonials -->
+    <section class="max-w-7xl mx-auto px-4 py-12 bg-uranian_blue text-white rounded-lg">
+        <h2 class="text-3xl font-semibold text-center mb-8">What Our Users Say</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="bg-oxford_blue bg-opacity-70 rounded-xl p-6">
+                <p class="mb-4">"Barter Base has transformed how I acquire new skills. I traded my photography
+                    expertise for web development lessons!"</p>
+                <p class="font-semibold">- John Barterbase himself</p>
             </div>
+            <div class="bg-oxford_blue bg-opacity-70 rounded-xl p-6">
+                <p class="mb-4">"I found an amazing artist to design my logo in exchange for my marketing services.
+                    It's a win-win!"</p>
+                <p class="font-semibold">- Jimbothy John Jones the 3rd</p>
+            </div>
+        </div>
+    </section>
 
-            <!-- Smol Example Posts -->
-            <div class="bg-white rounded-lg shadow p-6 space-y-4">
-                <div class="flex items-center space-x-4">
-                    <img src="BB.jpg" alt="User Avatar" class="w-10 h-10 rounded-full">
-                    <div>
-                        <h3 class="font-semibold">John Doe</h3>
-                        <p class="text-sm text-gray-500">2 hours ago</p>
-                    </div>
-                </div>
-                <p>Looking to trade my web development skills for graphic design work. Anyone interested?</p>
-                <div class="flex space-x-4 pt-4 border-t">
-                    <button class="flex items-center space-x-2 text-gray-500 hover:text-blue-500">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                        </svg>
-                        <span>Like</span>
-                    </button>
-                    <button class="flex items-center space-x-2 text-gray-500 hover:text-blue-500">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-                        </svg>
-                        <span>Comment</span>
-                    </button>
-                </div>
-            </div>
-        </section>
-    </main>
+    <!-- Call to Action -->
+    <section class="max-w-7xl mx-auto px-4 py-12 text-center">
+        <h2 class="text-3xl font-semibold mb-8">Ready to Start Bartering?</h2>
+        <p class="text-xl text-gray-700 mb-8">Join our community and unlock a world of opportunities.</p>
+        <a href="filter.html"
+            class="bg-polynesian_blue text-white px-8 py-3 rounded-full font-semibold hover:bg-ruddy_blue transition duration-300">
+            Join Barter Base Today
+        </a>
+    </section>
 
     <!-- Footer -->
     <div id="footer"></div>
