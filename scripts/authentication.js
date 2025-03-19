@@ -89,6 +89,40 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
         });
     }
+
+    // Social Login: Google
+    const googleBtn = document.getElementById('google-login');
+    googleBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        const googleProvider = new firebase.auth.GoogleAuthProvider();
+        auth.signInWithPopup(googleProvider)
+            .then((result) => {
+                // Optional: you can retrieve the access token with result.credential.accessToken
+                console.log("Google sign in successful:", result.user);
+                window.location.href = 'index.html';
+            })
+            .catch((error) => {
+                console.error("Error during Google sign in:", error);
+                alert(error.message);
+            });
+    });
+
+    // Social Login: Facebook
+    const facebookBtn = document.getElementById('facebook-login');
+    facebookBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        const facebookProvider = new firebase.auth.FacebookAuthProvider();
+        auth.signInWithPopup(facebookProvider)
+            .then((result) => {
+                // Optional: you can retrieve the access token with result.credential.accessToken
+                console.log("Facebook sign in successful:", result.user);
+                window.location.href = 'index.html';
+            })
+            .catch((error) => {
+                console.error("Error during Facebook sign in:", error);
+                alert(error.message);
+            });
+    });
     // This needs to get changed at some point
 
     // Check authentication state
