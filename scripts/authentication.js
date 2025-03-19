@@ -133,3 +133,12 @@ document.addEventListener('DOMContentLoaded', function () {
     // }
     // });
 });
+
+firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+    .then(() => {
+        // Persistence set to LOCAL, so the user remains signed in.
+        console.log("Auth persistence set to LOCAL.");
+    })
+    .catch((error) => {
+        console.error("Failed to set persistence:", error);
+    });
