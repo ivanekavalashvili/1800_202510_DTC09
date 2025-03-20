@@ -14,10 +14,12 @@ function populateUserInfo() {
             let useraboutme = doc.data().about_me;
             let usercredential = doc.data().credentials;
             let userinterests = doc.data().interests;
+            let useremail = doc.data().email
 
             document.getElementById("paragraph_aboutme").innerHTML = useraboutme;
             document.getElementById("paragraph_credentials").innerHTML = usercredential
             document.getElementById("paragraph_interests").innerHTML = userinterests;
+            document.getElementById("email_user").innerHTML = "Profile belongs to " + useremail;
         });
 
     firebase.auth().onAuthStateChanged(user => {
