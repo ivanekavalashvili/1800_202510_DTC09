@@ -20,6 +20,8 @@ function list_categories_from_database(collection, user) {
     console.log(sectionTemplate)
     db.collection(collection).get()
         .then(allCategories => {
+            document.getElementById("category-go-here").innerHTML = ""
+            document.getElementById("sections").innerHTML = ""
             allCategories.forEach(category => {
                 var currentCategory = category.data().category;
                 let newcategory = sectionTemplate.content.cloneNode(true);
@@ -41,7 +43,6 @@ function list_categories_from_database(collection, user) {
                             var currentSkill = skill.data().skill;
                             var skillCategory = skill.data().categoryName
                             if (skillCategory == currentCategory) {
-                                console.log(currentSkill)
                                 $("#" + currentCategory).append(`
                                 <button id="${currentSkill}"
                                     class="bg-uranian_blue text-oxford_blue px-8 py-3 rounded-full font-semibold 
@@ -49,6 +50,19 @@ function list_categories_from_database(collection, user) {
                                     ${currentSkill}
                                 </button>
                                 `)
+                                db.collection("userSkills")
+                                    .get()
+                                    .then(allUserSkills => {
+                                        allUserSkills.forEach(userSkill => {
+                                            if (userSkill.data().userID == user.uid) {
+                                                if (userSkill.data().skill == currentSkill) {
+                                                    if (userSkill.data().direction == direction) {
+                                                        document.getElementById(currentSkill).classList = "text-uranian_blue bg-oxford_blue px-8 py-3 rounded-full font-semibold hover:bg-ruddy_blue hover:text-yale_blue transition duration-300 my-3 mr-3"
+                                                    }
+                                                }
+                                            }
+                                        })
+                                    })
                                 document.getElementById(currentSkill).addEventListener("click", () => {
                                     db.collection("userSkills").add({
                                         proficency: "beginner",
@@ -56,7 +70,7 @@ function list_categories_from_database(collection, user) {
                                         skill: currentSkill,
                                         direction: direction
                                     })
-
+                                    document.getElementById(currentSkill).classList = "text-uranian_blue bg-oxford_blue px-8 py-3 rounded-full font-semibold hover:bg-ruddy_blue hover:text-yale_blue transition duration-300 my-3 mr-3"
                                 })
                             }
                         })
@@ -69,14 +83,26 @@ function list_categories_from_database(collection, user) {
 
 auth.onAuthStateChanged(user => {
     if (user) {
-        document.getElementById("offerBtn").addEventListener("click", () => {
-            direction = "Offering"
-        })
-        document.getElementById("requestBtn").addEventListener("click", () => {
-            direction = "Requesting"
-        })
         direction = "Offering"
-        list_categories_from_database("Categories", user, direction)}})
+        document.getElementById("offerBtn").classList = "text-uranian_blue bg-oxford_blue px-8 py-3 rounded-l-full font-semibold hover:bg-ruddy_blue hover:text-yale_blue transition duration-300 my-3"
+        list_categories_from_database("Categories", user, direction)
+        document.getElementById("toggleBtn").addEventListener("click", () => {
+            if (direction == "Offering") {
+                direction = "Requesting"
+                document.getElementById("offerBtn").classList = "bg-uranian_blue text-oxford_blue px-8 py-3 rounded-l-full font-semibold hover:bg-ruddy_blue hover:text-yale_blue transition duration-300 my-3"
+                document.getElementById("requestBtn").classList = "text-uranian_blue bg-oxford_blue px-8 py-3 rounded-r-full font-semibold hover:bg-ruddy_blue hover:text-yale_blue transition duration-300 my-3 mr-3"
+                list_categories_from_database("Categories", user, direction)
+                document.getElementById("title").innerHTML = "What skills would you like to Request?"
+            }
+            else { 
+                direction = "Offering" 
+                document.getElementById("offerBtn").classList = "text-uranian_blue bg-oxford_blue px-8 py-3 rounded-l-full font-semibold hover:bg-ruddy_blue hover:text-yale_blue transition duration-300 my-3"
+                document.getElementById("requestBtn").classList = "bg-uranian_blue text-oxford_blue px-8 py-3 rounded-r-full font-semibold hover:bg-ruddy_blue hover:text-yale_blue transition duration-300 my-3 mr-3"
+                list_categories_from_database("Categories", user, direction)
+                document.getElementById("title").innerHTML = "What skills are you willing to Offer?"
+            }
+        })
+        }})
 
 
 
