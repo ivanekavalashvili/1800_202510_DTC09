@@ -1,7 +1,8 @@
 var currentUser;               //points to the document of the user who is logged in
 console.log(currentUser)
 
-function displayprofileinfo() {
+
+function populateUserInfo() {
     let params = new URL(window.location.href); //get URL of search bar
     let ID = params.searchParams.get("docID"); //get value for key "id"
     console.log("ID" + ID);
@@ -18,19 +19,10 @@ function displayprofileinfo() {
             document.getElementById("paragraph_credentials").innerHTML = usercredential
             document.getElementById("paragraph_interests").innerHTML = userinterests;
         });
-}
-displayprofileinfo();
 
-function populateUserInfo() {
-    let params = new URL(window.location.href); //get URL of search bar
-    let ID = params.searchParams.get("docID"); //get value for key "id"
-    console.log("ID" + ID);
-    
     firebase.auth().onAuthStateChanged(user => {
         // Check if user is signed in:
-        console.log(user.uid)
-        console.log(user)
-        if (user == user.uid) {
+        if (user.uid == ID) {
 
             //go to the correct user document by referencing to the user uid
             currentUser = db.collection("users").doc(user.uid)
