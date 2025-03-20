@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function () {
             auth.signInWithEmailAndPassword(email, password)
                 .then((userCredential) => {
                     // Redirect to home page after successful login
-                    window.location.href = 'index.html';
+                    window.location.href = 'main.html';
                 })
                 .catch((error) => {
                     // Show error message
@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 })
                 .then(() => {
                     // Redirect to home page after successful signup
-                    window.location.href = 'index.html';
+                    window.location.href = 'filter.html';
                 })
                 .catch((error) => {
                     // Show error message
@@ -99,7 +99,7 @@ document.addEventListener('DOMContentLoaded', function () {
             .then((result) => {
                 // Optional: you can retrieve the access token with result.credential.accessToken
                 console.log("Google sign in successful:", result.user);
-                window.location.href = 'index.html';
+                window.location.href = 'main.html';
             })
             .catch((error) => {
                 console.error("Error during Google sign in:", error);
@@ -116,7 +116,7 @@ document.addEventListener('DOMContentLoaded', function () {
             .then((result) => {
                 // Optional: you can retrieve the access token with result.credential.accessToken
                 console.log("Facebook sign in successful:", result.user);
-                window.location.href = 'index.html';
+                window.location.href = 'main.html';
             })
             .catch((error) => {
                 console.error("Error during Facebook sign in:", error);
@@ -129,7 +129,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // auth.onAuthStateChanged(user => {
     // if (user && window.location.pathname.includes('login.html')) {
     //     // User is signed in and on login page, redirect to home
-    //     window.location.href = 'index.html';
+    //     window.location.href = 'main.html';
     // }
     // });
 });
