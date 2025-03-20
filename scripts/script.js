@@ -6,12 +6,12 @@ function sayHello() {
 auth.onAuthStateChanged(user => {
     if (user) {
         // User is logged in
-        console.log("User is signed in:", user.email);
+        let docID = user.uid
 
         // Update profile link to point to profile page instead of login
         const profileLinks = document.querySelectorAll('a[href="login.html"]');
         profileLinks.forEach(link => {
-            link.setAttribute('href', 'profile.html');
+            link.setAttribute('href', 'profile.html?docID=' + docID);
         });
 
         const barterButton = document.querySelector('button.bg-uranian_blue');
