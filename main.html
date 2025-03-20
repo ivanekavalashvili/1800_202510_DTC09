@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Barter Base - Trade, Barter, Thrive</title>
+    <meta name="comp1800 template" content="My 1800 App">
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Tailwind Library CSS CDN go here -->
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // Import color scheming from tailwind config
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        yale_blue: '#003567',
+                        oxford_blue: '#00264C',
+                        polynesian_blue: '#00498A',
+                        ruddy_blue: '#72A4DD',
+                        uranian_blue: '#B2D5FF'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Link to styles of your own -->
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+
+<body class="bg-gray-100 min-h-screen pb-20">
+    <!-- Navbar -->
+    <div id="navbar"></div>
+
+    <!-- Hero Section -->
+    <!-- <header class="relative overflow-hidden">
+        <div
+            class="animated-background absolute inset-0 bg-gradient-to-r from-yale_blue via-polynesian_blue to-ruddy_blue">
+        </div>
+        <div class="relative max-w-7xl mx-auto py-24 px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-5xl font-bold text-white mb-6">It's Barter time</h1>
+            <div class="flex justify-center space-x-4">
+                <a href="filter.html"
+                    class="bg-uranian_blue text-oxford_blue px-8 py-3 rounded-full font-semibold hover:bg-ruddy_blue hover:text-yale_blue transition duration-300">
+                    Explore Offers
+                </a>
+                <a href="filter.html"
+                    class="bg-transparent border-2 border-uranian_blue text-uranian_blue px-8 py-3 rounded-full font-semibold hover:bg-uranian_blue hover:text-oxford_blue transition duration-300">
+                    Edit your filter
+                </a>
+            </div>
+        </div>
+    </header> -->
+
+    <!-- Featured Categories -->
+    <section class="max-w-7xl mx-auto px-4 py-12">
+        <h2 class="text-3xl font-semibold text-center mb-8">Your Categories</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                <img src="https://picsum.photos/600/400" alt="Electronics" class="w-full h-48 object-cover">
+                <div class="p-4">
+                    <h3 class="font-semibold text-lg mb-2">Electronics</h3>
+                    <p class="text-gray-600">Trade your gadgets, components, and tech skills.</p>
+                    <a href="filter.html" class="text-polynesian_blue hover:text-ruddy_blue">Explore Electronics →</a>
+                </div>
+            </div>
+            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                <img src="https://picsum.photos/600/400" alt="Art & Design" class="w-full h-48 object-cover">
+                <div class="p-4">
+                    <h3 class="font-semibold text-lg mb-2">Art & Design</h3>
+                    <p class="text-gray-600">Barter creative services, handmade crafts, and artistic talents.</p>
+                    <a href="filter.html" class="text-polynesian_blue hover:text-ruddy_blue">Discover Art & Design →</a>
+                </div>
+            </div>
+            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                <img src="https://picsum.photos/600/400" alt="Services" class="w-full h-48 object-cover">
+                <div class="p-4">
+                    <h3 class="font-semibold text-lg mb-2">Services</h3>
+                    <p class="text-gray-600">Offer your expertise in exchange for other valuable services.</p>
+                    <a href="filter.html" class="text-polynesian_blue hover:text-ruddy_blue">Find Services →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="max-w-7xl mx-auto px-4 py-12">
+        <h2 class="text-3xl font-semibold text-center mb-8">Recommended contacts</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                <img src="https://picsum.photos/600/400" alt="Electronics" class="w-full h-48 object-cover">
+                <div class="p-4">
+                    <h3 class="font-semibold text-lg mb-2">Electronics</h3>
+                    <p class="text-gray-600">Trade your gadgets, components, and tech skills.</p>
+                    <a href="filter.html" class="text-polynesian_blue hover:text-ruddy_blue">Explore Electronics →</a>
+                </div>
+            </div>
+            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                <img src="https://picsum.photos/600/400" alt="Art & Design" class="w-full h-48 object-cover">
+                <div class="p-4">
+                    <h3 class="font-semibold text-lg mb-2">Art & Design</h3>
+                    <p class="text-gray-600">Barter creative services, handmade crafts, and artistic talents.</p>
+                    <a href="filter.html" class="text-polynesian_blue hover:text-ruddy_blue">Discover Art & Design →</a>
+                </div>
+            </div>
+            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                <img src="https://picsum.photos/600/400" alt="Services" class="w-full h-48 object-cover">
+                <div class="p-4">
+                    <h3 class="font-semibold text-lg mb-2">Services</h3>
+                    <p class="text-gray-600">Offer your expertise in exchange for other valuable services.</p>
+                    <a href="filter.html" class="text-polynesian_blue hover:text-ruddy_blue">Find Services →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <div id="footer"></div>
+
+    <!-- Firebase initialization -->
+    <script src="scripts/firebaseAPI_dtc09.js"></script>
+    <script src="scripts/script.js"></script>
+
+    <!-- Load skeleton last so it can inject chat after page content -->
+    <script src="elements/skeleton.js"></script>
+</body>
+
+</html>
