@@ -1,10 +1,30 @@
 var currentUser;               //points to the document of the user who is logged in
 console.log(currentUser)
 
+
 function populateUserInfo() {
+    let params = new URL(window.location.href); //get URL of search bar
+    let ID = params.searchParams.get("docID"); //get value for key "id"
+    console.log("ID" + ID);
+    console.log("params " + params)
+    db.collection("users")
+        .doc(ID)
+        .get()
+        .then(doc => {
+            let useraboutme = doc.data().about_me;
+            let usercredential = doc.data().credentials;
+            let userinterests = doc.data().interests;
+            let useremail = doc.data().email
+
+            document.getElementById("paragraph_aboutme").innerHTML = useraboutme;
+            document.getElementById("paragraph_credentials").innerHTML = usercredential
+            document.getElementById("paragraph_interests").innerHTML = userinterests;
+            document.getElementById("email_user").innerHTML = "Profile belongs to " + useremail;
+        });
+
     firebase.auth().onAuthStateChanged(user => {
         // Check if user is signed in:
-        if (user) {
+        if (user.uid == ID) {
 
             //go to the correct user document by referencing to the user uid
             currentUser = db.collection("users").doc(user.uid)
