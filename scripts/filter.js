@@ -34,10 +34,11 @@ function list_categories_from_database(collection, user) {
     db.collection(collection).get()
         .then(allCategories => {
             document.getElementById("category-go-here").innerHTML = ""
+            document.getElementById("sections").innerHTML = ""
             allCategories.forEach(category => {
                 var currentCategory = category.data().category;
                 $("#category-go-here").append(`
-                    <li class="hover:bg-gray-50 p-2 rounded transition"><button onclick="" id="aside${currentCategory}" <p>${currentCategory}</p></button></li>
+                    <li  id="aside${currentCategory}" class="hover:bg-gray-50 p-2 rounded transition cursor-pointer"><button <p>${currentCategory}</p></button></li>
                     `)
 
                 document.getElementById("aside" + currentCategory).addEventListener("click", () => {
