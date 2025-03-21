@@ -75,16 +75,14 @@ function list_categories_from_database(collection, user) {
                                         })
                                     }
                                     else {
-                                        const appendUserData = async () => {
-                                            const res = await db.collection("userSkills").add({
+                                        db.collection("userSkills").add({
                                                 proficency: "beginner",
                                                 userID: user.uid,
                                                 skill: currentSkill,
                                                 direction: direction
                                             })
                                             document.getElementById(currentSkill).classList = "selected text-uranian_blue bg-oxford_blue px-8 py-3 rounded-full font-semibold hover:bg-ruddy_blue hover:text-yale_blue transition duration-300 my-3 mr-3"
-                                        }
-                                        appendUserData()
+                                        
                                     }
                                 })
                             }
