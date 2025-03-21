@@ -15,18 +15,35 @@ function add_skills_to_database() {
     }
 }
 
+function showCategory(category, user) {
+    var currentCategory = category.data().category;
+    document.getElementById("sections").innerHTML = ""
+    $("#sections").append(`
+                <div class="bg-white rounded-lg shadow p-6">
+                    <h1 class="hover:bg-gray-50 p-2 rounded font-semibold transition"><a href="#">${currentCategory}</a></h1>
+                    <div class="flex items-center space-x-4">
+                        <div class="flex pt-4 border-t flex-wrap" id="${currentCategory}">
+                        </div>
+                    </div>
+                </div>
+                `)
+    get_skills(category, user)
+}
+
 function list_categories_from_database(collection, user) {
-    let sectionTemplate = document.getElementById("skillSectionTemplate");
-    console.log(sectionTemplate)
     db.collection(collection).get()
         .then(allCategories => {
             document.getElementById("category-go-here").innerHTML = ""
-            document.getElementById("sections").innerHTML = ""
             allCategories.forEach(category => {
                 var currentCategory = category.data().category;
-                let newcategory = sectionTemplate.content.cloneNode(true);
-                newcategory.querySelector('.categoryTitle').innerHTML = currentCategory;
-                document.getElementById("category-go-here").appendChild(newcategory);
+                $("#category-go-here").append(`
+                    <li class="hover:bg-gray-50 p-2 rounded transition"><button onclick="" id="aside${currentCategory}" <p>${currentCategory}</p></button></li>
+                    `)
+
+                document.getElementById("aside" + currentCategory).addEventListener("click", () => {
+                    showCategory(category, user)
+                })
+
                 $("#sections").append(`
                 <div class="bg-white rounded-lg shadow p-6">
                     <h1 class="hover:bg-gray-50 p-2 rounded font-semibold transition"><a href="#">${currentCategory}</a></h1>
@@ -36,62 +53,65 @@ function list_categories_from_database(collection, user) {
                     </div>
                 </div>
                 `)
+                    get_skills(category, user)
+                })
+        })
+}
 
-                db.collection("skills").get()
-                    .then(allSkills => {
-                        allSkills.forEach(skill => {
-                            var currentSkill = skill.data().skill;
-                            var skillCategory = skill.data().categoryName
-                            if (skillCategory == currentCategory) {
-                                $("#" + currentCategory).append(`
+function get_skills(category, user) {
+    var currentCategory = category.data().category;
+    db.collection("skills").get()
+        .then(allSkills => {
+            allSkills.forEach(skill => {
+                var currentSkill = skill.data().skill;
+                var skillCategory = skill.data().categoryName
+                if (skillCategory == currentCategory) {
+                    $("#" + currentCategory).append(`
                                 <button id="${currentSkill}"
                                     class="bg-uranian_blue text-oxford_blue px-8 py-3 rounded-full font-semibold 
                                     hover:bg-ruddy_blue hover:text-yale_blue transition duration-300 my-3 mr-3">
                                     ${currentSkill}
                                 </button>
                                 `)
-                                db.collection("userSkills")
-                                    .get()
-                                    .then(allUserSkills => {
-                                        allUserSkills.forEach(userSkill => {
-                                            if (userSkill.data().userID == user.uid && userSkill.data().skill == currentSkill && userSkill.data().direction == direction) {
-                                                document.getElementById(currentSkill).classList = "selected text-uranian_blue bg-oxford_blue px-8 py-3 rounded-full font-semibold hover:bg-ruddy_blue hover:text-yale_blue transition duration-300 my-3 mr-3"
-                                                selected = true
-                                            }
-                                        })
-                                    })
-                                document.getElementById(currentSkill).addEventListener("click", () => {
-                                    if (document.getElementById(currentSkill).classList == "selected text-uranian_blue bg-oxford_blue px-8 py-3 rounded-full font-semibold hover:bg-ruddy_blue hover:text-yale_blue transition duration-300 my-3 mr-3") {
-                                    db.collection("userSkills")
-                                        .get()
-                                        .then(allUserSkills => {
-                                            allUserSkills.forEach(userSkill => {
-                                                console.log(userSkill.id)
-                                                if (userSkill.data().userID == user.uid && userSkill.data().skill == currentSkill && userSkill.data().direction == direction) {
-                                                    deleteThing = db.collection("userSkills").doc(userSkill.id).delete();
-                                                    document.getElementById(currentSkill).classList = "bg-uranian_blue text-oxford_blue px-8 py-3 rounded-full font-semibold hover:bg-ruddy_blue hover:text-yale_blue transition duration-300 my-3 mr-3"
-                                                }
-                                            })
-                                        })
-                                    }
-                                    else {
-                                        db.collection("userSkills").add({
-                                                proficency: "beginner",
-                                                userID: user.uid,
-                                                skill: currentSkill,
-                                                direction: direction
-                                            })
-                                            document.getElementById(currentSkill).classList = "selected text-uranian_blue bg-oxford_blue px-8 py-3 rounded-full font-semibold hover:bg-ruddy_blue hover:text-yale_blue transition duration-300 my-3 mr-3"
-                                        
-                                    }
-                                })
-                            }
+                    db.collection("userSkills")
+                        .get()
+                        .then(allUserSkills => {
+                            allUserSkills.forEach(userSkill => {
+                                if (userSkill.data().userID == user.uid && userSkill.data().skill == currentSkill && userSkill.data().direction == direction) {
+                                    document.getElementById(currentSkill).classList = "selected text-uranian_blue bg-oxford_blue px-8 py-3 rounded-full font-semibold hover:bg-ruddy_blue hover:text-yale_blue transition duration-300 my-3 mr-3"
+                                    selected = true
+                                }
+                            })
                         })
+                    document.getElementById(currentSkill).addEventListener("click", () => {
+                        if (document.getElementById(currentSkill).classList == "selected text-uranian_blue bg-oxford_blue px-8 py-3 rounded-full font-semibold hover:bg-ruddy_blue hover:text-yale_blue transition duration-300 my-3 mr-3") {
+                            db.collection("userSkills")
+                                .get()
+                                .then(allUserSkills => {
+                                    allUserSkills.forEach(userSkill => {
+                                        console.log(userSkill.id)
+                                        if (userSkill.data().userID == user.uid && userSkill.data().skill == currentSkill && userSkill.data().direction == direction) {
+                                            deleteThing = db.collection("userSkills").doc(userSkill.id).delete();
+                                            document.getElementById(currentSkill).classList = "bg-uranian_blue text-oxford_blue px-8 py-3 rounded-full font-semibold hover:bg-ruddy_blue hover:text-yale_blue transition duration-300 my-3 mr-3"
+                                        }
+                                    })
+                                })
+                        }
+                        else {
+                            db.collection("userSkills").add({
+                                proficency: "beginner",
+                                userID: user.uid,
+                                skill: currentSkill,
+                                direction: direction
+                            })
+                            document.getElementById(currentSkill).classList = "selected text-uranian_blue bg-oxford_blue px-8 py-3 rounded-full font-semibold hover:bg-ruddy_blue hover:text-yale_blue transition duration-300 my-3 mr-3"
+
+                        }
                     })
+                }
             })
         })
 }
-
 
 
 auth.onAuthStateChanged(user => {
