@@ -54,23 +54,38 @@ function list_categories_from_database(collection, user) {
                                     .get()
                                     .then(allUserSkills => {
                                         allUserSkills.forEach(userSkill => {
-                                            if (userSkill.data().userID == user.uid) {
-                                                if (userSkill.data().skill == currentSkill) {
-                                                    if (userSkill.data().direction == direction) {
-                                                        document.getElementById(currentSkill).classList = "text-uranian_blue bg-oxford_blue px-8 py-3 rounded-full font-semibold hover:bg-ruddy_blue hover:text-yale_blue transition duration-300 my-3 mr-3"
-                                                    }
-                                                }
+                                            if (userSkill.data().userID == user.uid && userSkill.data().skill == currentSkill && userSkill.data().direction == direction) {
+                                                document.getElementById(currentSkill).classList = "selected text-uranian_blue bg-oxford_blue px-8 py-3 rounded-full font-semibold hover:bg-ruddy_blue hover:text-yale_blue transition duration-300 my-3 mr-3"
+                                                selected = true
                                             }
                                         })
                                     })
                                 document.getElementById(currentSkill).addEventListener("click", () => {
-                                    db.collection("userSkills").add({
-                                        proficency: "beginner",
-                                        userID: user.uid,
-                                        skill: currentSkill,
-                                        direction: direction
-                                    })
-                                    document.getElementById(currentSkill).classList = "text-uranian_blue bg-oxford_blue px-8 py-3 rounded-full font-semibold hover:bg-ruddy_blue hover:text-yale_blue transition duration-300 my-3 mr-3"
+                                    if (document.getElementById(currentSkill).classList == "selected text-uranian_blue bg-oxford_blue px-8 py-3 rounded-full font-semibold hover:bg-ruddy_blue hover:text-yale_blue transition duration-300 my-3 mr-3") {
+                                    db.collection("userSkills")
+                                        .get()
+                                        .then(allUserSkills => {
+                                            allUserSkills.forEach(userSkill => {
+                                                console.log(userSkill.id)
+                                                if (userSkill.data().userID == user.uid && userSkill.data().skill == currentSkill && userSkill.data().direction == direction) {
+                                                    deleteThing = db.collection("userSkills").doc(userSkill.id).delete();
+                                                    document.getElementById(currentSkill).classList = "bg-uranian_blue text-oxford_blue px-8 py-3 rounded-full font-semibold hover:bg-ruddy_blue hover:text-yale_blue transition duration-300 my-3 mr-3"
+                                                }
+                                            })
+                                        })
+                                    }
+                                    else {
+                                        const appendUserData = async () => {
+                                            const res = await db.collection("userSkills").add({
+                                                proficency: "beginner",
+                                                userID: user.uid,
+                                                skill: currentSkill,
+                                                direction: direction
+                                            })
+                                            document.getElementById(currentSkill).classList = "selected text-uranian_blue bg-oxford_blue px-8 py-3 rounded-full font-semibold hover:bg-ruddy_blue hover:text-yale_blue transition duration-300 my-3 mr-3"
+                                        }
+                                        appendUserData()
+                                    }
                                 })
                             }
                         })
@@ -94,15 +109,16 @@ auth.onAuthStateChanged(user => {
                 list_categories_from_database("Categories", user, direction)
                 document.getElementById("title").innerHTML = "What skills would you like to Request?"
             }
-            else { 
-                direction = "Offering" 
+            else {
+                direction = "Offering"
                 document.getElementById("offerBtn").classList = "text-uranian_blue bg-oxford_blue px-8 py-3 rounded-l-full font-semibold hover:bg-ruddy_blue hover:text-yale_blue transition duration-300 my-3"
                 document.getElementById("requestBtn").classList = "bg-uranian_blue text-oxford_blue px-8 py-3 rounded-r-full font-semibold hover:bg-ruddy_blue hover:text-yale_blue transition duration-300 my-3 mr-3"
                 list_categories_from_database("Categories", user, direction)
                 document.getElementById("title").innerHTML = "What skills are you willing to Offer?"
             }
         })
-        }})
+    }
+})
 
 
 
