@@ -7,15 +7,17 @@
             </a>
         </li>
         <li class="flex-1 max-w-xl mx-4">
-            <div class="relative flex items-center">
-                <input type="text" placeholder="Search Barter Base..."
+            <form action="search.html" class="relative flex items-center" onsubmit="handleNavbarSearch(event)">
+                <input type="text" id="navbar-search" name="q" placeholder="Search skills..."
                     class="w-full py-2 px-4 bg-gray-100 rounded-full focus:outline-none focus:ring-2 focus:ring-polynesian_blue">
-                <svg class="w-5 h-5 absolute right-3 text-gray-400" xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                    <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linecap="round" stroke-linejoin="round"
-                        stroke-width="2" />
-                </svg>
-            </div>
+                <button type="submit" class="absolute right-3">
+                    <svg class="w-5 h-5 text-gray-400 hover:text-polynesian_blue transition-colors"
+                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linecap="round"
+                            stroke-linejoin="round" stroke-width="2" />
+                    </svg>
+                </button>
+            </form>
         </li>
         <li class="flex items-center space-x-4">
             <a href="login.html" class="p-2 hover:bg-gray-100 rounded-full transition duration-300">
@@ -29,3 +31,13 @@
         </li>
     </ul>
 </nav>
+
+<script>
+    function handleNavbarSearch(e) {
+        e.preventDefault();
+        const searchTerm = document.getElementById('navbar-search').value.trim();
+        if (searchTerm) {
+            window.location.href = `search.html?q=${encodeURIComponent(searchTerm)}`;
+        }
+    }
+</script>

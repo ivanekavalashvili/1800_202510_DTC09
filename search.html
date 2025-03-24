@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Search - Barter Base</title>
+    <meta name="comp1800 template" content="My 1800 App">
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Tailwind Library CSS CDN -->
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // Import color scheming from tailwind config
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        yale_blue: '#003567',
+                        oxford_blue: '#00264C',
+                        polynesian_blue: '#00498A',
+                        ruddy_blue: '#72A4DD',
+                        uranian_blue: '#B2D5FF'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+</head>
+
+<body class="bg-gray-100">
+    <!-- Navbar -->
+    <div id="navbar"></div>
+
+    <!-- Search Section -->
+    <header class="relative overflow-hidden">
+        <div
+            class="animated-background absolute inset-0 bg-gradient-to-r from-yale_blue via-polynesian_blue to-ruddy_blue">
+        </div>
+        <div class="relative max-w-7xl mx-auto py-24 px-4 sm:px-6 lg:px-8">
+            <h1 class="text-5xl font-bold text-white mb-6 text-center">Search for Skills</h1>
+            <div class="max-w-xl mx-auto">
+                <div class="relative flex items-center">
+                    <input type="text" id="search-input" placeholder="Enter a skill (e.g. 'Python', 'Digital Art')"
+                        class="w-full py-4 px-6 bg-white rounded-full focus:outline-none focus:ring-2 focus:ring-polynesian_blue text-lg">
+                    <button id="search-button"
+                        class="absolute right-2 bg-polynesian_blue text-white px-6 py-2 rounded-full hover:bg-ruddy_blue transition duration-300">
+                        Search
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Results Section -->
+    <main class="max-w-7xl mx-auto px-4 py-12">
+        <div id="search-results" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Results will be dynamically inserted here -->
+        </div>
+
+        <!-- Loading State -->
+        <div id="loading-state" class="hidden text-center py-12">
+            <div class="animate-spin rounded-full h-16 w-16 border-b-2 border-polynesian_blue mx-auto"></div>
+            <p class="text-gray-600 mt-4">Searching for matches...</p>
+        </div>
+
+        <!-- No Results State -->
+        <div id="no-results" class="hidden text-center py-12">
+            <p class="text-2xl text-gray-600">No matches found</p>
+            <p class="text-gray-500 mt-2">Try adjusting your search terms</p>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <div id="footer"></div>
+
+    <!-- Scripts -->
+    <script src="scripts/firebaseAPI_dtc09.js"></script>
+    <script src="scripts/script.js"></script>
+    <script src="scripts/search.js"></script>
+    <script src="elements/skeleton.js"></script>
+</body>
+
+</html>
