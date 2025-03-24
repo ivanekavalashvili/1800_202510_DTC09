@@ -103,12 +103,18 @@ function loadChatPopup() {
     // Add toggle function with additional handling for chat initialization
     window.toggleChat = function () {
         const container = document.getElementById('chat-popup-container');
+        const chatIcon = document.getElementById('chat-icon');
+
         container.classList.toggle('active');
 
-        // Trigger a custom event when chat becomes visible
+        // If container is now active (visible), hide the icon
         if (container.classList.contains('active')) {
+            chatIcon.style.display = 'none';
             const chatEvent = new Event('chatVisible');
             document.dispatchEvent(chatEvent);
+        } else {
+            // If container is now inactive (hidden), show the icon
+            chatIcon.style.display = 'flex'; // Using flex to maintain the original display property
         }
     };
 }

@@ -108,8 +108,15 @@
     window.openChatWithUser = function (userId) {
         // Make chat visible
         const chatContainer = document.getElementById('chat-popup-container');
+        const chatIcon = document.getElementById('chat-icon');
+
         if (chatContainer) {
             chatContainer.classList.add('active');
+
+            // Hide chat icon when opening chat from a profile
+            if (chatIcon) {
+                chatIcon.style.display = 'none';
+            }
 
             // Wait a bit to ensure DOM is updated
             setTimeout(() => {
