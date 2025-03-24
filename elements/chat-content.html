@@ -1,4 +1,3 @@
-<!-- Chat header -->
 <div class="p-4 border-b flex justify-between items-center bg-uranian_blue">
     <div class="flex items-center">
         <img id="chat-user-avatar" src="images/Blank_pfp.png" alt="User Avatar" class="w-10 h-10 rounded-full mr-3">
@@ -7,40 +6,136 @@
             <p id="chat-status" class="text-sm text-gray-500">Loading...</p>
         </div>
     </div>
-    <button onclick="toggleChat()" class="text-gray-500 hover:text-gray-700">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-        </svg>
-    </button>
+    <div>
+        <button id="back-to-contacts" class="text-gray-500 hover:text-gray-700 hidden mr-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            </svg>
+        </button>
+        <button onclick="toggleChat()" class="text-gray-500 hover:text-gray-700">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+        </button>
+    </div>
 </div>
 
-<!-- Auth status container -->
-<div id="auth-status" class="bg-white p-4 mb-4 text-center">
+
+<div id="auth-status" class="bg-white p-4 mb-0 text-center">
     <p id="login-message">Please sign in to chat</p>
     <button id="login-btn" class="bg-polynesian_blue text-white px-4 py-2 rounded mt-2 hidden">
         Sign in
     </button>
 </div>
 
-<!-- Messages container -->
-<div id="messages" class="h-80 overflow-y-auto p-4 space-y-4">
-    <!-- Messages will be inserted here -->
-    <div class="flex justify-center">
-        <p class="text-gray-500">Start chatting now!</p>
+
+<div id="contacts-container" class="bg-white z-10">
+    <h3 class="font-medium text-lg p-4 border-b bg-uranian_blue text-oxford_blue">Your Contacts</h3>
+    <div id="contacts-list" class="max-h-80 overflow-y-auto bg-white" style="min-height: 200px;">
+
+        <div class="flex justify-center p-4">
+            <p class="text-gray-500">Loading contacts...</p>
+        </div>
+    </div>
+
+    <div class="p-3 border-t bg-gray-50">
+        <p class="text-sm text-center text-gray-600">
+            Add contacts by visiting user profiles and clicking "Chat with me"
+        </p>
     </div>
 </div>
 
-<!-- Message input -->
-<form id="message-form" class="border-t p-4">
-    <div class="flex space-x-2">
-        <input id="message-input" type="text" placeholder="Type a message..."
-            class="flex-1 bg-gray-100 rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-polynesian_blue"
-            disabled>
-        <button type="submit" class="bg-polynesian_blue text-white px-4 py-2 rounded-full disabled:opacity-50" disabled>
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                <path
-                    d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
-            </svg>
-        </button>
+
+<div id="messages-container" class="bg-white hidden" style="display: none; min-height: 300px; z-index: 20;">
+    <div id="messages" class="h-80 overflow-y-auto p-4 space-y-4">
+
+        <div class="flex justify-center">
+            <p class="text-gray-500">Start chatting now!</p>
+        </div>
     </div>
-</form>
+
+
+    <form id="message-form" class="border-t p-4">
+        <div class="flex space-x-2">
+            <input id="message-input" type="text" placeholder="Type a message..."
+                class="flex-1 bg-gray-100 rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-polynesian_blue"
+                disabled>
+            <button type="submit" class="bg-polynesian_blue text-white px-4 py-2 rounded-full disabled:opacity-50"
+                disabled>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block" viewBox="0 0 20 20"
+                    fill="currentColor">
+                    <path
+                        d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
+                </svg>
+                <span class="ml-2">Send</span>
+            </button>
+        </div>
+    </form>
+</div>
+
+
+<script>
+    // Enhanced initialization for chat container elements
+    document.addEventListener('DOMContentLoaded', function () {
+        // These will help ensure the chat container is properly initialized
+        const chatPopupContainer = document.getElementById('chat-popup-container');
+        if (chatPopupContainer) {
+            chatPopupContainer.addEventListener('click', function (e) {
+                // Prevent any clicks within the chat container from bubbling up
+                e.stopPropagation();
+            });
+        }
+    });
+
+    // Listen for the custom event when chat becomes visible
+    document.addEventListener('chatVisible', function () {
+        console.log('Chat is now visible, ensuring elements are ready');
+        // This is a good place to reinitialize any chat components if needed
+
+        // Check if message input exists and is properly initialized
+        const messageInput = document.getElementById('message-input');
+        if (messageInput) {
+            console.log('Message input is available');
+            // You could trigger any initialization code here if needed
+        } else {
+            console.error('Message input element not found');
+        }
+    });
+
+    // Expose a global function to handle profile chat clicks
+    window.openChatWithUser = function (userId) {
+        // Make chat visible
+        const chatContainer = document.getElementById('chat-popup-container');
+        if (chatContainer) {
+            chatContainer.classList.add('active');
+
+            // Wait a bit to ensure DOM is updated
+            setTimeout(() => {
+                // Get reference to message components
+                const messagesContainer = document.getElementById('messages-container');
+                const contactsContainer = document.getElementById('contacts-container');
+                const backButton = document.getElementById('back-to-contacts');
+
+                if (messagesContainer && contactsContainer && backButton) {
+                    // Show messages, hide contacts list
+                    messagesContainer.style.display = 'block';
+                    contactsContainer.style.display = 'none';
+                    backButton.style.display = 'block';
+
+                    // Here you would typically initialize the chat with this user
+                    console.log('Opening chat with user: ' + userId);
+
+                    // Trigger any chat initialization code
+                    const chatEvent = new CustomEvent('openChatWithUser', {
+                        detail: { userId: userId }
+                    });
+                    document.dispatchEvent(chatEvent);
+                } else {
+                    console.error('Chat interface elements not found');
+                }
+            }, 300);
+        }
+    };
+</script>

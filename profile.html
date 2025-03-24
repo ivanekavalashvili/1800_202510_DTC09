@@ -116,7 +116,7 @@
     <main class="grid grid-cols-1 md:grid-cols-2 bg-white rounded-lg shadow p-6 py-10 px-[20%] justify-items-center">
         <section class="grid grid-rows-1 md:grid-rows-2 justify-items-center md:justify-items-start">
             <div class="py-10">
-                <div class="flex flex-row pb-2">
+                <div class="flex flex-row pb-2 space-x-2">
                     <button class="border border-red-800 bg-white hover:bg-red-800 rounded px-1"
                         onclick="reportbtn_open()">Report</button>
                     <button id="edit_btn" style="display: none" class="border bg-white hover:bg-gray-400 rounded px-1"
@@ -125,6 +125,9 @@
                     <button id="save_btn" style="display: none" class="border bg-white hover:bg-gray-400 rounded px-1"
                         onclick="saveUserInfo()">Save
                         changes</button>
+                    <button id="chat_btn"
+                        class="border border-polynesian_blue bg-white hover:bg-polynesian_blue hover:text-white rounded px-2"
+                        onclick="addContact()">Chat with me</button>
                 </div>
                 <img src="images/Blank_pfp.png" class="border border-black h-60 w-60">
             </div>

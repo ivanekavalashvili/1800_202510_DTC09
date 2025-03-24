@@ -29,10 +29,23 @@ function loadChatPopup() {
         .then(response => response.text())
         .then(html => {
             chatContainer.innerHTML = html;
-            // Load the chat.js script after inserting the HTML
-            const script = document.createElement('script');
-            script.src = 'scripts/chat.js';
-            document.body.appendChild(script);
+
+            // Create a function to check if the DOM elements are loaded
+            const checkElementsLoaded = () => {
+                const messageInput = document.getElementById('message-input');
+                if (messageInput) {
+                    // Load chat.js only after elements are confirmed to exist
+                    const script = document.createElement('script');
+                    script.src = 'scripts/chat.js';
+                    document.body.appendChild(script);
+                } else {
+                    // If elements aren't loaded yet, try again in a short while
+                    setTimeout(checkElementsLoaded, 100);
+                }
+            };
+
+            // Start the checking process
+            checkElementsLoaded();
         });
 
     // Add chat styles to head if not already present
@@ -76,13 +89,27 @@ function loadChatPopup() {
         #chat-icon:hover {
             background-color: #003567;
         }
+        
+        #contacts-list .contact-item:hover {
+            background-color: #f3f4f6;
+        }
+        
+        #back-to-contacts {
+            cursor: pointer;
+        }
     `;
     document.head.appendChild(styleElement);
 
-    // Add toggle function
+    // Add toggle function with additional handling for chat initialization
     window.toggleChat = function () {
         const container = document.getElementById('chat-popup-container');
         container.classList.toggle('active');
+
+        // Trigger a custom event when chat becomes visible
+        if (container.classList.contains('active')) {
+            const chatEvent = new Event('chatVisible');
+            document.dispatchEvent(chatEvent);
+        }
     };
 }
 
