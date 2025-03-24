@@ -76,6 +76,14 @@ function loadChatPopup() {
         #chat-icon:hover {
             background-color: #003567;
         }
+        
+        #contacts-list .contact-item:hover {
+            background-color: #f3f4f6;
+        }
+        
+        #back-to-contacts {
+            cursor: pointer;
+        }
     `;
     document.head.appendChild(styleElement);
 
