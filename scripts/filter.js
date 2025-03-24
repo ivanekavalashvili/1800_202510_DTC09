@@ -1,36 +1,30 @@
-example_dictionary = {
-    "Electronics": ["Software Development", "Hardware Development"],
-    "Art": ["Traditional art", "Digital art", "Pottery"],
-    "Trades": ["Machenery", "Carpentry", "Plumbing"],
-    "Languages": ["English", "Mandarin Chinese", "Spanish", "Hindi", "Portuguese", "Bengali", "Russian", "Japanese", "Punjabi", "Vietnamese", "Cantonese", "Korean", "French", "German",],
-    "Music": ["Producing", "Piano", "Guitar", "Violin", "Drums"]
-};
+// object_representing_current_database = {
+//     "Electronics": ["Software Development", "Hardware Development"],
+//     "Art": ["Traditional art", "Digital art", "Pottery"],
+//     "Trades": ["Machenery", "Carpentry", "Plumbing"],
+//     "Languages": ["English", "Mandarin Chinese", "Spanish", "Hindi", "Portuguese", "Bengali", "Russian", "Japanese", "Punjabi", "Vietnamese", "Cantonese", "Korean", "French", "German",],
+//     "Music": ["Producing", "Piano", "Guitar", "Violin", "Drums"]
+// };
 
-function add_skills_to_database() {
-    for (skill in example_dictionary.Art) {
-        db.collection("skills").add({
-            categoryName: "Art",
-            skill: example_dictionary.Art[skill]
-        })
-    }
-}
+// skills_to_be_added_to_database = {
+//     "Electronics": ["AI"],
+//     "Art": [],
+//     "Trades": [],
+//     "Languages": [],
+//     "Music": []
+// };
 
-function showCategory(category, user) {
-    var currentCategory = category.data().category;
-    document.getElementById("sections").innerHTML = ""
-    $("#sections").append(`
-                <div class="bg-white rounded-lg shadow p-6">
-                    <h1 class="hover:bg-gray-50 p-2 rounded font-semibold transition"><a href="#">${currentCategory}</a></h1>
-                    <div class="flex items-center space-x-4">
-                        <div class="flex pt-4 border-t flex-wrap" id="${currentCategory}">
-                        </div>
-                    </div>
-                </div>
-                `)
-    get_skills(category, user)
-}
+// function add_skills_to_database() {
+//     for (skill in skills_to_be_added_to_database.Electronics) {
+//         db.collection("skills").add({
+//             categoryName: string(Electronics),
+//             skill: skills_to_be_added_to_database.Electronics[skill]
+//         })
+//     }
+// }
 
 function list_categories_from_database(collection, user) {
+    // lists each category from firebase
     db.collection(collection).get()
         .then(allCategories => {
             document.getElementById("category-go-here").innerHTML = ""
@@ -59,7 +53,24 @@ function list_categories_from_database(collection, user) {
         })
 }
 
+function showCategory(category, user) {
+    // after user clicks a category it shows only that category in the screen
+    var currentCategory = category.data().category;
+    document.getElementById("sections").innerHTML = ""
+    $("#sections").append(`
+                <div class="bg-white rounded-lg shadow p-6">
+                    <h1 class="hover:bg-gray-50 p-2 rounded font-semibold transition"><a href="#">${currentCategory}</a></h1>
+                    <div class="flex items-center space-x-4">
+                        <div class="flex pt-4 border-t flex-wrap" id="${currentCategory}">
+                        </div>
+                    </div>
+                </div>
+                `)
+    get_skills(category, user)
+}
+
 function get_skills(category, user) {
+    // adds all the skills to their respective categories from firebase
     var currentCategory = category.data().category;
     db.collection("skills").get()
         .then(allSkills => {
