@@ -77,7 +77,7 @@
 
 
 <script>
-    // Ensure chat container elements are correctly identified
+    // Enhanced initialization for chat container elements
     document.addEventListener('DOMContentLoaded', function () {
         // These will help ensure the chat container is properly initialized
         const chatPopupContainer = document.getElementById('chat-popup-container');
@@ -88,4 +88,54 @@
             });
         }
     });
+
+    // Listen for the custom event when chat becomes visible
+    document.addEventListener('chatVisible', function () {
+        console.log('Chat is now visible, ensuring elements are ready');
+        // This is a good place to reinitialize any chat components if needed
+
+        // Check if message input exists and is properly initialized
+        const messageInput = document.getElementById('message-input');
+        if (messageInput) {
+            console.log('Message input is available');
+            // You could trigger any initialization code here if needed
+        } else {
+            console.error('Message input element not found');
+        }
+    });
+
+    // Expose a global function to handle profile chat clicks
+    window.openChatWithUser = function (userId) {
+        // Make chat visible
+        const chatContainer = document.getElementById('chat-popup-container');
+        if (chatContainer) {
+            chatContainer.classList.add('active');
+
+            // Wait a bit to ensure DOM is updated
+            setTimeout(() => {
+                // Get reference to message components
+                const messagesContainer = document.getElementById('messages-container');
+                const contactsContainer = document.getElementById('contacts-container');
+                const backButton = document.getElementById('back-to-contacts');
+
+                if (messagesContainer && contactsContainer && backButton) {
+                    // Show messages, hide contacts list
+                    messagesContainer.style.display = 'block';
+                    contactsContainer.style.display = 'none';
+                    backButton.style.display = 'block';
+
+                    // Here you would typically initialize the chat with this user
+                    console.log('Opening chat with user: ' + userId);
+
+                    // Trigger any chat initialization code
+                    const chatEvent = new CustomEvent('openChatWithUser', {
+                        detail: { userId: userId }
+                    });
+                    document.dispatchEvent(chatEvent);
+                } else {
+                    console.error('Chat interface elements not found');
+                }
+            }, 300);
+        }
+    };
 </script>
