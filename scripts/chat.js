@@ -371,7 +371,6 @@ function loadMessages(conversationId) {
                         messagesContainer.innerHTML = `<div class="flex justify-center"><p class="text-gray-500">No messages yet. Start the conversation!</p></div>`;
                         return;
                     }
-                    messagesContainer.innerHTML = "";
                     let lastEl = null;
                     snapshot.docChanges().forEach(change => {
                         if (change.type === 'added') {
@@ -508,3 +507,45 @@ window.loadContacts = loadContacts;
 window.selectContact = selectContact;
 window.showMessagesView = showMessagesView;
 window.showContactsView = showContactsView;
+
+// Assume currentChatId is set when a chat session is opened.
+let currentChatId = 'defaultChatId'; // Replace with actual chat room id logic
+let messageIds = new Set();
+
+// Render a message element without clearing previous messages.
+function renderMessage(msgData) {
+    const div = document.createElement('div');
+    div.className = 'message-item p-2 border-b';
+    div.innerHTML = `
+        <p><strong>${msgData.senderName}:</strong> ${msgData.text}</p>
+        <small class="text-gray-500">${new Date(msgData.timestamp).toLocaleTimeString()}</small>
+    `;
+    return div;
+}
+
+// Re-write the chat refreshing system:
+// Remove any code that clears messagesContainer.innerHTML completely before updating.
+// Instead, listen for new document changes and append only new messages.
+if (typeof unsubscribeMessages === 'function') {
+    unsubscribeMessages();
+}
+
+unsubscribeMessages = firebase.firestore().collection('chats')
+    .doc(currentChatId)
+    .collection('messages')
+    .orderBy('timestamp')
+    .onSnapshot(snapshot => {
+        snapshot.docChanges().forEach(change => {
+            const msgId = change.doc.id;
+            const msgData = change.doc.data();
+            // Only process added messages which have not been rendered
+            if (change.type === 'added' && !messageIds.has(msgId)) {
+                messageIds.add(msgId);
+                const msgElement = renderMessage(msgData);
+                messagesContainer.appendChild(msgElement);
+                // Auto-scroll to latest message
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            }
+            // Optionally handle 'modified' or 'removed' changes if needed.
+        });
+    });
