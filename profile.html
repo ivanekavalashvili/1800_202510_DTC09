@@ -116,7 +116,8 @@
     <main class="grid grid-cols-1 md:grid-cols-2 gap-8 bg-grey-100 rounded-lg shadow p-6 py-10 px-[20%]">
         <section class="grid grid-cols-1 gap-8 py-10 px-[20%] justify-items-center">
             <div class="py-5 bg-white rounded-lg shadow p-2 justify-items-left mx-auto">
-                <div class="flex flex-row pb-2 space-x-2 text-base">
+                <img src="images/Blank_pfp.png" class="border border-black h-60 w-60 justify-items-center md:mx-auto">
+                <div class="flex flex-row pb-2 space-x-2 text-base pt-5">
                     <button class="border border-red-800 bg-white hover:bg-red-800 rounded px-1"
                         onclick="reportbtn_open()">Report</button>
                     <button id="edit_btn" style="display: none" class="border bg-white hover:bg-gray-400 rounded px-1"
@@ -129,7 +130,6 @@
                         class="border border-polynesian_blue bg-white hover:bg-polynesian_blue hover:text-white rounded px-2"
                         onclick="addContact()">Chat with me</button>
                 </div>
-                <img src="images/Blank_pfp.png" class="border border-black h-60 w-60 justify-items-center md:mx-auto">
             </div>
             <div class="py-5 px-5 w-120 bg-white rounded-lg shadow p-6">
                 <p class="text-4xl pb-2 align-center">About me!</p>
@@ -153,17 +153,18 @@
         <section class="grid grid-cols-2 gap-8 bg-white rounded-lg shadow px-[10%] py-3 justify-items-center">
             <div class="">
                 <button href="filter.html" class="text-2xl bg-uranian_blue text-oxford_blue px-8 py-3 rounded-full font-semibold 
-                                    hover:bg-ruddy_blue hover:text-yale_blue transition duration-300 my-3 mr-3
-                    onclick=" window.location='filter.html'">Offers
+                                    hover:bg-ruddy_blue hover:text-yale_blue transition duration-300 my-3 mr-3"
+                    onclick="window.location='filter.html'">Offers
                     <div id=" offers_div">
-            </div>
+                    </div>
             </div>
             <div>
-                <button href="filter.html" class="text-2xl bg-uranian_blue text-oxford_blue px-8 py-3 rounded-full font-semibold 
-                                                    hover:bg-ruddy_blue hover:text-yale_blue transition duration-300 my-3 mr-3
-                                    onclick=" window.location='filter.html'">Requests
+                <button href="filter.html"
+                    class="text-2xl bg-uranian_blue text-oxford_blue px-8 py-3 rounded-full font-semibold 
+                                                    hover:bg-ruddy_blue hover:text-yale_blue transition duration-300 my-3 mr-3"
+                    onclick=" window.location='filter.html'">Requests
                     <div id=" requests_div">
-            </div>
+                    </div>
             </div>
         </section>
     </main>
