@@ -36,7 +36,15 @@ function populateUserInfo() {
                     let usercredential = userDoc.data().credentials;
                     let userinterests = userDoc.data().interests;
                     document.getElementById("save_btn").style.display = "block"
-                    document.getElementById("edit_btn").style.display = "block"
+
+                    document.getElementById("profile_aboutme").style.display = "block"
+                    document.getElementById("paragraph_aboutme").style.display = "none"
+
+                    document.getElementById("profile_credentials").style.display = "block"
+                    document.getElementById("paragraph_credentials").style.display = "none"
+
+                    document.getElementById("profile_interests").style.display = "block"
+                    document.getElementById("paragraph_interests").style.display = "none"
 
                     console.log(useraboutme)
                     console.log(usercredential)
@@ -67,37 +75,13 @@ function populateUserInfo() {
 //call the function to run it 
 populateUserInfo();
 
-function editUserInfo() {
-    document.getElementById("profile_aboutme").disabled = false
-    document.getElementById("profile_credentials").disabled = false
-    document.getElementById("profile_interests").disabled = false
-    document.getElementById("profile_interests").style.display = "block"
-    document.getElementById("profile_credentials").style.display = "block"
-    document.getElementById("profile_aboutme").style.display = "block"
-    document.getElementById("paragraph_interests").style.display = "none"
-    document.getElementById("paragraph_credentials").style.display = "none"
-    document.getElementById("paragraph_aboutme").style.display = "none"
-}
-
 function saveUserInfo() {
-    document.getElementById("profile_aboutme").disabled = true
-    document.getElementById("profile_credentials").disabled = true
-    document.getElementById("profile_interests").disabled = true
-
     useraboutme = document.getElementById('profile_aboutme').value;
     usercredential = document.getElementById('profile_credentials').value;
     userinterests = document.getElementById('profile_interests').value;
-    document.getElementById('paragraph_interests').innerHTML = userinterests
-    document.getElementById('paragraph_credentials').innerHTML = usercredential
-    document.getElementById('paragraph_aboutme').innerHTML = useraboutme
-
-    document.getElementById("profile_interests").style.display = "none"
-    document.getElementById("profile_credentials").style.display = "none"
-    document.getElementById("profile_aboutme").style.display = "none"
-
-    document.getElementById("paragraph_interests").style.display = "block"
-    document.getElementById("paragraph_credentials").style.display = "block"
-    document.getElementById("paragraph_aboutme").style.display = "block"
+    document.getElementById('paragraph_interests').value = userinterests
+    document.getElementById('paragraph_credentials').value = usercredential
+    document.getElementById('paragraph_aboutme').value = useraboutme
 
     currentUser.update({
         about_me: useraboutme,
