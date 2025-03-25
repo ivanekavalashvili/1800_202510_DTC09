@@ -90,13 +90,13 @@ function get_skills(category, user) {
                         .then(allUserSkills => {
                             allUserSkills.forEach(userSkill => {
                                 if (userSkill.data().userID == user.uid && userSkill.data().skill == currentSkill && userSkill.data().direction == direction) {
-                                    document.getElementById(currentSkill).classList = "selected text-uranian_blue bg-oxford_blue px-8 py-3 rounded-full font-semibold hover:bg-ruddy_blue hover:text-yale_blue transition duration-300 my-3 mr-3"
+                                    document.getElementById(currentSkill).classList = "selected text-uranian_blue bg-oxford_blue px-8 py-3 rounded-full font-semibold hover:text-ruddy_blue hover:bg-yale_blue transition duration-300 my-3 mr-3"
                                     selected = true
                                 }
                             })
                         })
                     document.getElementById(currentSkill).addEventListener("click", () => {
-                        if (document.getElementById(currentSkill).classList == "selected text-uranian_blue bg-oxford_blue px-8 py-3 rounded-full font-semibold hover:bg-ruddy_blue hover:text-yale_blue transition duration-300 my-3 mr-3") {
+                        if (document.getElementById(currentSkill).classList == "selected text-uranian_blue bg-oxford_blue px-8 py-3 rounded-full font-semibold hover:text-ruddy_blue hover:bg-yale_blue transition duration-300 my-3 mr-3") {
                             db.collection("userSkills")
                                 .get()
                                 .then(allUserSkills => {
@@ -116,7 +116,7 @@ function get_skills(category, user) {
                                 skill: currentSkill,
                                 direction: direction
                             })
-                            document.getElementById(currentSkill).classList = "selected text-uranian_blue bg-oxford_blue px-8 py-3 rounded-full font-semibold hover:bg-ruddy_blue hover:text-yale_blue transition duration-300 my-3 mr-3"
+                            document.getElementById(currentSkill).classList = "selected text-uranian_blue bg-oxford_blue px-8 py-3 rounded-full font-semibold hover:text-ruddy_blue hover:bg-yale_blue transition duration-300 my-3 mr-3"
 
                         }
                     })
@@ -135,14 +135,14 @@ auth.onAuthStateChanged(user => {
             if (direction == "Offering") {
                 direction = "Requesting"
                 document.getElementById("offerBtn").classList = "bg-uranian_blue text-oxford_blue px-8 py-3 rounded-l-full font-semibold hover:bg-ruddy_blue hover:text-yale_blue transition duration-300 my-3"
-                document.getElementById("requestBtn").classList = "text-uranian_blue bg-oxford_blue px-8 py-3 rounded-r-full font-semibold hover:bg-ruddy_blue hover:text-yale_blue transition duration-300 my-3 mr-3"
+                document.getElementById("requestBtn").classList = "text-uranian_blue bg-oxford_blue px-8 py-3 rounded-r-full font-semibold hover:text-ruddy_blue hover:bg-yale_blue transition duration-300 my-3 mr-3"
                 list_categories_from_database("Categories", user, direction)
                 document.getElementById("title").innerHTML = "What skills would you like to Request?"
             }
             else {
                 direction = "Offering"
                 document.getElementById("offerBtn").classList = "text-uranian_blue bg-oxford_blue px-8 py-3 rounded-l-full font-semibold hover:bg-ruddy_blue hover:text-yale_blue transition duration-300 my-3"
-                document.getElementById("requestBtn").classList = "bg-uranian_blue text-oxford_blue px-8 py-3 rounded-r-full font-semibold hover:bg-ruddy_blue hover:text-yale_blue transition duration-300 my-3 mr-3"
+                document.getElementById("requestBtn").classList = "bg-uranian_blue text-oxford_blue px-8 py-3 rounded-r-full font-semibold hover:text-ruddy_blue hover:bg-yale_blue transition duration-300 my-3 mr-3"
                 list_categories_from_database("Categories", user, direction)
                 document.getElementById("title").innerHTML = "What skills are you willing to Offer?"
             }
