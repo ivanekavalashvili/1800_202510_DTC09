@@ -25,7 +25,7 @@ function loadChatPopup() {
     document.body.appendChild(chatContainer);
 
     // Load chat content into the container
-    fetch('elements/chat-content.html')
+    fetch('elements/chat.html')
         .then(response => response.text())
         .then(html => {
             chatContainer.innerHTML = html;
