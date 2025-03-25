@@ -113,10 +113,10 @@
         <p class="text-2xl justify-center bg-white rounded-lg shadow p-6 py-10 px-[20%] text-center" id="email_user">
             Null</p>
     </section>
-    <main class="grid grid-cols-1 md:grid-cols-2 bg-white rounded-lg shadow p-6 py-10 px-[20%] justify-items-center">
-        <section class="grid grid-rows-1 md:grid-rows-2 justify-items-center md:justify-items-start">
-            <div class="py-10">
-                <div class="flex flex-row pb-2 space-x-2">
+    <main class="grid grid-cols-1 md:grid-cols-2 gap-8 bg-grey-100 rounded-lg shadow p-6 py-10 px-[20%]">
+        <section class="grid grid-cols-1 gap-8 py-10 px-[20%] justify-items-center">
+            <div class="py-5 bg-white rounded-lg shadow p-2 justify-items-left mx-auto">
+                <div class="flex flex-row pb-2 space-x-2 text-base">
                     <button class="border border-red-800 bg-white hover:bg-red-800 rounded px-1"
                         onclick="reportbtn_open()">Report</button>
                     <button id="edit_btn" style="display: none" class="border bg-white hover:bg-gray-400 rounded px-1"
@@ -129,29 +129,36 @@
                         class="border border-polynesian_blue bg-white hover:bg-polynesian_blue hover:text-white rounded px-2"
                         onclick="addContact()">Chat with me</button>
                 </div>
-                <img src="images/Blank_pfp.png" class="border border-black h-60 w-60">
+                <img src="images/Blank_pfp.png" class="border border-black h-60 w-60 justify-items-center md:mx-auto">
             </div>
-
-            <div class="py-10 px-5">
-                <p class="text-4xl pb-2">My Credentials!</p>
-                <input class="text-xl m-w-[500px]" style="display: none" maxlength="300" id="profile_credentials"
-                    disabled>
-                <p class="text-xl m-w-[500px]" id="paragraph_credentials"></p>
-            </div>
-        </section>
-        <section class="grid grid-rows-1 md:grid-rows-2 py-5 justify-items-center md:justify-items-end">
-            <div class="py-10 px-5">
-                <p class="text-4xl pb-2">About me!</p>
-                <input class="text-xl m-w-[500px]" style="display: none" maxlength="300" id="profile_aboutme" disabled>
+            <div class="py-5 px-5 w-120 bg-white rounded-lg shadow p-6">
+                <p class="text-4xl pb-2 align-center">About me!</p>
+                <textarea class="text-xl w-120" rows="9" style="display: none" maxlength="300" id="profile_aboutme"
+                    disabled></textarea>
                 <p class="text-xl m-w-[500px]" id="paragraph_aboutme"></p>
             </div>
-            <div class="py-10 px-5">
+            <div class="py-10 px-5 w-120 bg-white rounded-lg shadow p-6">
+                <p class="text-4xl pb-2">My Credentials!</p>
+                <textarea class="text-xl w-120" rows="9" style="display: none" maxlength="300" id="profile_credentials"
+                    disabled></textarea>
+                <p class="text-xl m-w-[500px]" id="paragraph_credentials"></p>
+            </div>
+            <div class="py-10 px-5 w-120 bg-white rounded-lg shadow p-6">
                 <p class="text-4xl pb-2">My Interests!</p>
-                <input class="text-xl m-w-[500px]" style="display: none" maxlength="300" id="profile_interests"
-                    disabled>
+                <textarea class="text-xl w-120" rows="9" style="display: none" maxlength="300" id="profile_interests"
+                    disabled></textarea>
                 <p class="text-xl m-w-[500px]" id="paragraph_interests"></p>
             </div>
-
+        </section>
+        <section class="grid grid-cols-2 gap-8 bg-white rounded-lg shadow px-[10%] py-3 justify-between">
+            <div>
+                <section class="grid">
+                    <p class="text-2xl">Offers</p>
+                </section class="">
+                <section>
+                    <p class="text-2xl">Requests</p>
+                </section>
+            </div>
         </section>
     </main>
     <!-- Footer -->
