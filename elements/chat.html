@@ -1,189 +1,148 @@
-<!DOCTYPE html>
-<html lang="en">
+<div class="p-4 border-b flex justify-between items-center bg-uranian_blue">
+    <div class="flex items-center">
+        <img id="chat-user-avatar" src="images/Blank_pfp.png" alt="User Avatar" class="w-10 h-10 rounded-full mr-3">
+        <div>
+            <h2 id="chat-user-name" class="font-semibold">Chat</h2>
+            <p id="chat-status" class="text-sm text-gray-500">Loading...</p>
+        </div>
+    </div>
+    <div>
+        <button id="back-to-contacts" class="text-gray-500 hover:text-gray-700 hidden mr-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            </svg>
+        </button>
+        <button onclick="toggleChat()" class="text-gray-500 hover:text-gray-700">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+        </button>
+    </div>
+</div>
 
-<head>
-    <title>Barter Base Chat</title>
-    <meta name="comp1800 template" content="My 1800 App">
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="styles/style.css">
 
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
+<div id="auth-status" class="bg-white p-4 mb-0 text-center">
+    <p id="login-message">Please sign in to chat</p>
+    <button id="login-btn" class="bg-polynesian_blue text-white px-4 py-2 rounded mt-2 hidden">
+        Sign in
+    </button>
+</div>
 
-    <style>
-        /* Style for the chat popup container */
-        #chat-popup-container {
-            display: none;
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 400px;
-            max-height: 80vh;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-            border-radius: 10px;
-            overflow: hidden;
-            z-index: 1000;
-        }
 
-        #chat-popup-container.active {
-            display: block;
-        }
+<div id="contacts-container" class="bg-white z-10">
+    <h3 class="font-medium text-lg p-4 border-b bg-uranian_blue text-oxford_blue">Your Contacts</h3>
+    <div id="contacts-list" class="max-h-80 overflow-y-auto bg-white" style="min-height: 200px;">
 
-        /* Style for the chat icon */
-        #chat-icon {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 60px;
-            height: 60px;
-            background-color: #00498A;
-            /* polynesian_blue */
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            z-index: 1001;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-        }
-
-        #chat-icon:hover {
-            background-color: #003567;
-            /* yale_blue */
-        }
-    </style>
-
-</head>
-
-<body class="bg-gray-100 min-h-screen pb-20">
-
-    <div id="chat-icon" onclick="toggleChat()">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 20 20" fill="currentColor">
-            <path fill-rule="evenodd"
-                d="M18 5v8a2 2 0 01-2 2h-5l-5 4v-4H4a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2zM7 8H5v2h2V8zm2 0h2v2H9V8zm6 0h-2v2h2V8z"
-                clip-rule="evenodd" />
-        </svg>
+        <div class="flex justify-center p-4">
+            <p class="text-gray-500">Loading contacts...</p>
+        </div>
     </div>
 
-    <!-- Chat Popup Container -->
-    <div id="chat-popup-container">
-        <!-- Navbar -->
-        <nav class="bg-uranian_blue shadow-md">
-            <ul class="flex flex-row justify-between items-center p-3 max-w-7xl mx-auto">
-                <li class="p-2 hover:bg-gray-100 rounded-full transition duration-300">
-                    <a href="index.html" class="flex items-center space-x-2">
-                        <img src="BB.jpg" alt="Barter Base Logo" class="rounded-full w-10 h-10">
-                        <span class="font-bold text-xl hidden md:block">Barter Base</span>
-                    </a>
-                </li>
-                <li class="flex-1 max-w-xl mx-4">
-                    <div class="relative flex items-center">
-                        <input type="text" placeholder="Search Barter Base..."
-                            class="w-full py-2 px-4 bg-gray-100 rounded-full focus:outline-none focus:ring-2 focus:ring-polynesian_blue">
-                        <svg class="w-5 h-5 absolute right-3 text-gray-400" xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                            <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linecap="round"
-                                stroke-linejoin="round" stroke-width="2" />
-                        </svg>
-                    </div>
-                </li>
-                <li class="flex items-center space-x-4">
-                    <a href="login.html" class="p-2 hover:bg-gray-100 rounded-full transition duration-300">
-                        <svg class="w-8 h-8 text-gray-700" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                            fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                            stroke-width="2">
-                            <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"></path>
-                            <path d="M12 10m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
-                            <path d="M6.168 18.849a4 4 0 0 1 3.832 -2.849h4a4 4 0 0 1 3.834 2.855"></path>
-                        </svg>
-                    </a>
-                </li>
-            </ul>
-        </nav>
+    <div class="p-3 border-t bg-gray-50">
+        <p class="text-sm text-center text-gray-600">
+            Add contacts by visiting user profiles and clicking "Chat with me"
+        </p>
+    </div>
+</div>
 
-        <header class="relative overflow-hidden">
-            <div
-                class="animated-background absolute inset-0 bg-gradient-to-r from-yale_blue via-polynesian_blue to-ruddy_blue">
-            </div>
-            <div class="relative max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8 text-center">
-                <h1 class="text-4xl font-bold text-white mb-2">Chat with Barter Base Users</h1>
-                <p class="text-lg text-white/90">Connect, negotiate, and make trades happen!</p>
-            </div>
-        </header>
 
-        <main class="max-w-4xl mx-auto px-4 py-6">
-            <!-- Auth status container -->
-            <div id="auth-status" class="bg-white rounded-lg shadow p-4 mb-4 text-center">
-                <p id="login-message">Please sign in to chat</p>
-                <button id="login-btn" class="bg-polynesian_blue text-white px-4 py-2 rounded mt-2 hidden">
-                    Sign in
-                </button>
-            </div>
+<div id="messages-container" class="bg-white hidden" style="display: none; min-height: 300px; z-index: 20;">
+    <div id="messages" class="h-80 overflow-y-auto p-4 space-y-4">
 
-            <!-- Chat interface -->
-            <div id="chat-container" class="bg-white rounded-lg shadow">
-                <!-- Chat header -->
-                <div class="p-4 border-b flex justify-between items-center bg-uranian_blue">
-                    <div class="flex items-center">
-                        <img id="chat-user-avatar" src="images/Blank_pfp.png" alt="User Avatar"
-                            class="w-10 h-10 rounded-full mr-3">
-                        <div>
-                            <h2 id="chat-user-name" class="font-semibold">Chat</h2>
-                            <p id="chat-status" class="text-sm text-gray-500">Loading...</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Messages container -->
-                <div id="messages" class="h-96 overflow-y-auto p-4 space-y-4">
-                    <!-- Messages will be inserted here -->
-                    <div class="flex justify-center">
-                        <p class="text-gray-500">Start chatting now!</p>
-                    </div>
-                </div>
-
-                <!-- Message input -->
-                <form id="message-form" class="border-t p-4">
-                    <div class="flex space-x-2">
-                        <input id="message-input" type="text" autocomplete="off" placeholder="Type a message..."
-                            class="flex-1 bg-gray-100 rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-polynesian_blue"
-                            disabled>
-                        <button type="submit"
-                            class="bg-polynesian_blue text-white px-4 py-2 rounded-full disabled:opacity-50" disabled>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20"
-                                fill="currentColor">
-                                <path
-                                    d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
-                            </svg>
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </main>
-
-        <footer class="bg-oxford_blue text-uranian_blue py-6">
-            <div class="container mx-auto px-4 text-center">
-                <p class="text-sm">&copy; 2025 Barter Base. All rights reserved.</p>
-            </div>
-        </footer>
+        <div class="flex justify-center">
+            <p class="text-gray-500">Start chatting now!</p>
+        </div>
     </div>
 
-    <!-- Firebase configuration and chat functionality -->
-    <script src="scripts/firebaseAPI_dtc09.js"></script>
-    <script src="scripts/chat.js"></script>
 
-    <script>
-        function toggleChat() {
-            var container = document.getElementById('chat-popup-container');
-            container.classList.toggle('active');
+    <form id="message-form" class="border-t p-4">
+        <div class="flex space-x-2">
+            <input id="message-input" type="text" autocomplete="off" placeholder="Type a message..."
+                class="flex-1 bg-gray-100 rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-polynesian_blue"
+                disabled>
+            <button type="submit" class="bg-polynesian_blue text-white px-4 py-2 rounded-full disabled:opacity-50"
+                disabled>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block" viewBox="0 0 20 20"
+                    fill="currentColor">
+                    <path
+                        d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
+                </svg>
+                <span class="ml-2">Send</span>
+            </button>
+        </div>
+    </form>
+</div>
+
+
+<script>
+    // Enhanced initialization for chat container elements
+    document.addEventListener('DOMContentLoaded', function () {
+        // These will help ensure the chat container is properly initialized
+        const chatPopupContainer = document.getElementById('chat-popup-container');
+        if (chatPopupContainer) {
+            chatPopupContainer.addEventListener('click', function (e) {
+                // Prevent any clicks within the chat container from bubbling up
+                e.stopPropagation();
+            });
         }
-    </script>
-</body>
+    });
 
-</html>
+    // Listen for the custom event when chat becomes visible
+    document.addEventListener('chatVisible', function () {
+        console.log('Chat is now visible, ensuring elements are ready');
+        // This is a good place to reinitialize any chat components if needed
+
+        // Check if message input exists and is properly initialized
+        const messageInput = document.getElementById('message-input');
+        if (messageInput) {
+            console.log('Message input is available');
+            // You could trigger any initialization code here if needed
+        } else {
+            console.error('Message input element not found');
+        }
+    });
+
+    // Expose a global function to handle profile chat clicks
+    window.openChatWithUser = function (userId) {
+        // Make chat visible
+        const chatContainer = document.getElementById('chat-popup-container');
+        const chatIcon = document.getElementById('chat-icon');
+
+        if (chatContainer) {
+            chatContainer.classList.add('active');
+
+            // Hide chat icon when opening chat from a profile
+            if (chatIcon) {
+                chatIcon.style.display = 'none';
+            }
+
+            // Wait a bit to ensure DOM is updated
+            setTimeout(() => {
+                // Get reference to message components
+                const messagesContainer = document.getElementById('messages-container');
+                const contactsContainer = document.getElementById('contacts-container');
+                const backButton = document.getElementById('back-to-contacts');
+
+                if (messagesContainer && contactsContainer && backButton) {
+                    // Show messages, hide contacts list
+                    messagesContainer.style.display = 'block';
+                    contactsContainer.style.display = 'none';
+                    backButton.style.display = 'block';
+
+                    // Here you would typically initialize the chat with this user
+                    console.log('Opening chat with user: ' + userId);
+
+                    // Trigger any chat initialization code
+                    const chatEvent = new CustomEvent('openChatWithUser', {
+                        detail: { userId: userId }
+                    });
+                    document.dispatchEvent(chatEvent);
+                } else {
+                    console.error('Chat interface elements not found');
+                }
+            }, 300);
+        }
+    };
+</script>
