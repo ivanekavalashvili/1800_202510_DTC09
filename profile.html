@@ -28,6 +28,7 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
     <script src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script>
     <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.css" />
     <link rel="stylesheet" href="styles/style.css">
@@ -115,8 +116,20 @@
     </section>
     <main class="bg-grey-100 rounded-lg shadow p-6 p-6 px-6">
         <section class="flex justify-center items-center">
-            <div class="py-5 bg-white rounded-lg shadow p-2 items-center w-70 flex flex-col justify-center items-center">
-                <img src="images/Blank_pfp.png" class="border border-black h-60 w-60 mb-4">
+            <div
+                class="py-5 bg-white rounded-lg shadow p-2 items-center w-70 flex flex-col justify-center items-center">
+                <div class="relative">
+                    <img id="profile-image" src="images/Blank_pfp.png"
+                        class="border border-black h-60 w-60 mb-4 object-cover">
+                    <input type="file" id="profile-upload" accept="image/*" class="hidden">
+                    <button id="upload-button" onclick="document.getElementById('profile-upload').click()"
+                        class="absolute bottom-6 right-2 bg-polynesian_blue text-white p-2 rounded-full hover:bg-ruddy_blue transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path
+                                d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+                        </svg>
+                    </button>
+                </div>
                 <div class="flex flex-row space-x-2 text-base justify-center">
                     <button class="border border-red-800 bg-white hover:bg-red-800 rounded px-1"
                         onclick="reportbtn_open()">Report</button>
@@ -127,48 +140,48 @@
                         onclick="addContact()">Chat with me</button>
                 </div>
             </div>
-            
-        </div>
-    </section>
-    <article class="grid grid-cols-1 md:grid-cols-2 gap-4 bg-grey-100 rounded-lg shadow+ px-[20%]">
-        <section class="grid grid-cols-1 gap-8 py-10 px-[20%] justify-items-center">
-            <div class="py-5 px-5 w-120 bg-white rounded-lg shadow p-6">
-                <p class="text-4xl pb-2 align-center">About me!</p>
-                <textarea class="text-xl w-110 border-2 border-uranian_blue  focus:border-oxford_blue" rows="9"
-                    style="display: none" maxlength="300" id="profile_aboutme"></textarea>
-                <p class="text-xl m-w-[500px]" id="paragraph_aboutme" style="display: block"></p>
-            </div>
-            <div class="py-10 px-5 w-120 bg-white rounded-lg shadow p-6">
-                <p class="text-4xl pb-2">My Credentials!</p>
-                <textarea class="text-xl w-110 border-2 border-uranian_blue  focus:border-oxford_blue" rows="9"
-                    style="display: none" maxlength="300" id="profile_credentials"></textarea>
-                <p class="text-xl m-w-[500px]" id="paragraph_credentials" style="display: block"></p>
-            </div>
-            <div class="py-10 px-5 w-120 bg-white rounded-lg shadow p-6">
-                <p class="text-4xl pb-2">My Interests!</p>
-                <textarea class="text-xl w-110 border-2 border-uranian_blue  focus:border-oxford_blue" rows="9"
-                    style="display: none" maxlength="300" id="profile_interests"></textarea>
-                <p class="text-xl m-w-[500px]" id="paragraph_interests" style="display: block"></p>
+
             </div>
         </section>
-        <section class="grid grid-cols-2 gap-4 bg-white rounded-lg shadow px-5 py-3 mx-auto my-10 mb-auto">
-            <div class="flex flex-col items-center justify-start">
-                <button href="filter.html" class="text-2xl bg-uranian_blue text-oxford_blue px-3 py-3 rounded-full font-semibold
+        <article class="grid grid-cols-1 md:grid-cols-2 gap-4 bg-grey-100 rounded-lg shadow+ px-[20%]">
+            <section class="grid grid-cols-1 gap-8 py-10 px-[20%] justify-items-center">
+                <div class="py-5 px-5 w-120 bg-white rounded-lg shadow p-6">
+                    <p class="text-4xl pb-2 align-center">About me!</p>
+                    <textarea class="text-xl w-110 border-2 border-uranian_blue  focus:border-oxford_blue" rows="9"
+                        style="display: none" maxlength="300" id="profile_aboutme"></textarea>
+                    <p class="text-xl m-w-[500px]" id="paragraph_aboutme" style="display: block"></p>
+                </div>
+                <div class="py-10 px-5 w-120 bg-white rounded-lg shadow p-6">
+                    <p class="text-4xl pb-2">My Credentials!</p>
+                    <textarea class="text-xl w-110 border-2 border-uranian_blue  focus:border-oxford_blue" rows="9"
+                        style="display: none" maxlength="300" id="profile_credentials"></textarea>
+                    <p class="text-xl m-w-[500px]" id="paragraph_credentials" style="display: block"></p>
+                </div>
+                <div class="py-10 px-5 w-120 bg-white rounded-lg shadow p-6">
+                    <p class="text-4xl pb-2">My Interests!</p>
+                    <textarea class="text-xl w-110 border-2 border-uranian_blue  focus:border-oxford_blue" rows="9"
+                        style="display: none" maxlength="300" id="profile_interests"></textarea>
+                    <p class="text-xl m-w-[500px]" id="paragraph_interests" style="display: block"></p>
+                </div>
+            </section>
+            <section class="grid grid-cols-2 gap-4 bg-white rounded-lg shadow px-5 py-3 mx-auto my-10 mb-auto">
+                <div class="flex flex-col items-center justify-start">
+                    <button href="filter.html" class="text-2xl bg-uranian_blue text-oxford_blue px-3 py-3 rounded-full font-semibold
                         hover:bg-ruddy_blue hover:text-yale_blue transition duration-300 my-3 m-w-159"
-                    onclick="window.location='filter.html'">Offering</button>
-                <div id="offers_div" class="w-full">
+                        onclick="window.location='filter.html'">Offering</button>
+                    <div id="offers_div" class="w-full">
+                    </div>
                 </div>
-            </div>
-            <div class="flex flex-col items-center justify-start">
-                <button href="filter.html" class="text-2xl bg-uranian_blue text-oxford_blue px-3 py-3 rounded-full font-semibold
+                <div class="flex flex-col items-center justify-start">
+                    <button href="filter.html" class="text-2xl bg-uranian_blue text-oxford_blue px-3 py-3 rounded-full font-semibold
                         hover:bg-ruddy_blue hover:text-yale_blue transition duration-300 my-3"
-                    onclick="window.location='filter.html'">Requests</button>
-                <div id="requests_div" class="w-full">
+                        onclick="window.location='filter.html'">Requests</button>
+                    <div id="requests_div" class="w-full">
+                    </div>
                 </div>
-            </div>
-        </section>
-        
-    </article>
+            </section>
+
+        </article>
     </main>
     <!-- Footer -->
     <div id="footer"></div>

@@ -17,6 +17,12 @@ function populateUserInfo() {
             let usercredential = doc.data().credentials;
             let userinterests = doc.data().interests;
             let useremail = doc.data().email;
+            let profilePicture = doc.data().profilePicture;
+
+            // Update profile picture if available
+            if (profilePicture) {
+                document.getElementById("profile-image").src = profilePicture;
+            }
 
             document.getElementById("paragraph_aboutme").innerHTML = useraboutme;
             document.getElementById("paragraph_credentials").innerHTML = usercredential;
@@ -24,61 +30,104 @@ function populateUserInfo() {
             document.getElementById("email_user").innerHTML = "Profile belongs to " + useremail;
         });
 
-}
-
-
     firebase.auth().onAuthStateChanged(user => {
-        // Check if user is signed in:
-        let params = new URL(window.location.href); 
-        let ID = params.searchParams.get("docID"); 
-        console.log(ID)
-        if (user.uid == ID) {
+        if (user && user.uid == ID) {
+            // Show upload button only on own profile
+            document.getElementById('upload-button').style.display = 'block';
 
-            //go to the correct user document by referencing to the user uid
-            currentUser = db.collection("users").doc(user.uid)
-            //get the document for current user.
+            currentUser = db.collection("users").doc(user.uid);
             currentUser.get()
                 .then(userDoc => {
-                    //get the data fields of the user
-                    console.log("this is reaching me ")
                     let useraboutme = userDoc.data().about_me;
                     let usercredential = userDoc.data().credentials;
                     let userinterests = userDoc.data().interests;
-                    document.getElementById("save_btn").style.display = "block"
+                    let profilePicture = userDoc.data().profilePicture;
 
-                    document.getElementById("profile_aboutme").style.display = "block"
-                    document.getElementById("paragraph_aboutme").style.display = "none"
+                    document.getElementById("save_btn").style.display = "block";
+                    document.getElementById("profile_aboutme").style.display = "block";
+                    document.getElementById("paragraph_aboutme").style.display = "none";
+                    document.getElementById("profile_credentials").style.display = "block";
+                    document.getElementById("paragraph_credentials").style.display = "none";
+                    document.getElementById("profile_interests").style.display = "block";
+                    document.getElementById("paragraph_interests").style.display = "none";
 
-                    document.getElementById("profile_credentials").style.display = "block"
-                    document.getElementById("paragraph_credentials").style.display = "none"
+                    if (profilePicture) {
+                        document.getElementById("profile-image").src = profilePicture;
+                    }
 
-                    document.getElementById("profile_interests").style.display = "block"
-                    document.getElementById("paragraph_interests").style.display = "none"
-
-                    console.log(useraboutme)
-                    console.log(usercredential)
-                    console.log(userinterests)
-
-                    //if the data fields are not empty, then write them in to the form.
                     if (useraboutme != null) {
                         document.getElementById("profile_aboutme").value = useraboutme;
                         document.getElementById("paragraph_aboutme").innerHTML = useraboutme;
                     }
                     if (usercredential != null) {
                         document.getElementById("profile_credentials").value = usercredential;
-                        document.getElementById("paragraph_credentials").innerHTML = usercredential
+                        document.getElementById("paragraph_credentials").innerHTML = usercredential;
                     }
                     if (userinterests != null) {
                         document.getElementById("profile_interests").value = userinterests;
                         document.getElementById("paragraph_interests").innerHTML = userinterests;
-
                     }
-                })
+                });
         } else {
-            // No user is signed in.
-            console.log("No user is signed in");
+            // Hide upload button on other profiles
+            document.getElementById('upload-button').style.display = 'none';
         }
     });
+}
+
+
+firebase.auth().onAuthStateChanged(user => {
+    // Check if user is signed in:
+    let params = new URL(window.location.href);
+    let ID = params.searchParams.get("docID");
+    console.log(ID)
+    if (user.uid == ID) {
+
+        //go to the correct user document by referencing to the user uid
+        currentUser = db.collection("users").doc(user.uid)
+        //get the document for current user.
+        currentUser.get()
+            .then(userDoc => {
+                //get the data fields of the user
+                console.log("this is reaching me ")
+                let useraboutme = userDoc.data().about_me;
+                let usercredential = userDoc.data().credentials;
+                let userinterests = userDoc.data().interests;
+                document.getElementById("save_btn").style.display = "block"
+
+                document.getElementById("profile_aboutme").style.display = "block"
+                document.getElementById("paragraph_aboutme").style.display = "none"
+
+                document.getElementById("profile_credentials").style.display = "block"
+                document.getElementById("paragraph_credentials").style.display = "none"
+
+                document.getElementById("profile_interests").style.display = "block"
+                document.getElementById("paragraph_interests").style.display = "none"
+
+                console.log(useraboutme)
+                console.log(usercredential)
+                console.log(userinterests)
+
+                //if the data fields are not empty, then write them in to the form.
+                if (useraboutme != null) {
+                    document.getElementById("profile_aboutme").value = useraboutme;
+                    document.getElementById("paragraph_aboutme").innerHTML = useraboutme;
+                }
+                if (usercredential != null) {
+                    document.getElementById("profile_credentials").value = usercredential;
+                    document.getElementById("paragraph_credentials").innerHTML = usercredential
+                }
+                if (userinterests != null) {
+                    document.getElementById("profile_interests").value = userinterests;
+                    document.getElementById("paragraph_interests").innerHTML = userinterests;
+
+                }
+            })
+    } else {
+        // No user is signed in.
+        console.log("No user is signed in");
+    }
+});
 
 //call the function to run it 
 populateUserInfo();
@@ -102,17 +151,17 @@ function saveUserInfo() {
 }
 
 function fetchUserSkills() {
-    let params = new URL(window.location.href); 
+    let params = new URL(window.location.href);
     let docID = params.searchParams.get("docID");
     console.log("Fetching skills for user with docID:", docID);
 
     db.collection("userSkills")
         .where("direction", "==", "Offering")
-        .where("userID", "==", docID) 
+        .where("userID", "==", docID)
         .get()
         .then((querySnapshot) => {
             const offersDiv = document.getElementById("offers_div");
-            offersDiv.innerHTML = ''; 
+            offersDiv.innerHTML = '';
 
             querySnapshot.forEach((doc) => {
                 const data = doc.data();
@@ -264,3 +313,128 @@ firebase.auth().onAuthStateChanged(user => {
         }
     }
 });
+
+// Profile picture upload handling
+document.getElementById('profile-upload').addEventListener('change', handleProfilePictureUpload);
+
+async function handleProfilePictureUpload(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    // Store the upload button and its original content
+    const uploadButton = document.getElementById('upload-button');
+    const originalContent = uploadButton.innerHTML;
+
+    // Function to reset button state
+    const resetButton = () => {
+        uploadButton.innerHTML = originalContent;
+        uploadButton.disabled = false;
+    };
+
+    try {
+        // Check if file is an image
+        if (!file.type.startsWith('image/')) {
+            alert('Please upload an image file');
+            return;
+        }
+
+        // Check file size (limit to 5MB)
+        if (file.size > 5 * 1024 * 1024) {
+            alert('Please upload an image smaller than 5MB');
+            return;
+        }
+
+        const user = firebase.auth().currentUser;
+        if (!user) {
+            alert('Please sign in to upload a profile picture');
+            return;
+        }
+
+        // Show loading state
+        uploadButton.innerHTML = `
+            <svg class="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+        `;
+        uploadButton.disabled = true;
+
+        // Get storage reference
+        const storageRef = firebase.storage().ref();
+
+        // Create a reference to the user's profile picture
+        const fileExtension = file.name.split('.').pop();
+        const fileName = `${user.uid}.${fileExtension}`;
+        const profilePicRef = storageRef.child(`profile-pictures/${fileName}`);
+
+        // Create file metadata including the content type
+        const metadata = {
+            contentType: file.type,
+        };
+
+        // Upload the file and metadata
+        const uploadTask = profilePicRef.put(file, metadata);
+
+        // Listen for state changes, errors, and completion of the upload
+        uploadTask.on(
+            firebase.storage.TaskEvent.STATE_CHANGED,
+            (snapshot) => {
+                // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+                const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                console.log('Upload is ' + progress + '% done');
+            },
+            (error) => {
+                // Handle unsuccessful uploads
+                console.error('Upload error:', error);
+                let errorMessage = 'Error uploading profile picture. ';
+                if (error.code === 'storage/unauthorized') {
+                    errorMessage += 'You do not have permission to upload files.';
+                } else if (error.code === 'storage/canceled') {
+                    errorMessage += 'Upload was cancelled.';
+                } else if (error.code === 'storage/unknown') {
+                    errorMessage += 'An unknown error occurred.';
+                } else {
+                    errorMessage += error.message || 'Please try again.';
+                }
+                alert(errorMessage);
+                resetButton();
+            },
+            async () => {
+                // Handle successful uploads on complete
+                try {
+                    // Get the download URL
+                    const downloadURL = await uploadTask.snapshot.ref.getDownloadURL();
+
+                    // Update user profile
+                    await user.updateProfile({
+                        photoURL: downloadURL
+                    });
+
+                    // Update user document in Firestore
+                    await db.collection('users').doc(user.uid).update({
+                        profilePicture: downloadURL
+                    });
+
+                    // Update the image on the page
+                    const profileImage = document.getElementById('profile-image');
+                    if (profileImage) {
+                        profileImage.src = downloadURL;
+                    }
+
+                    // Reset button and show success message
+                    resetButton();
+                    alert('Profile picture updated successfully!');
+                } catch (error) {
+                    console.error('Error after upload:', error);
+                    alert('Error updating profile information. Please try again.');
+                    resetButton();
+                }
+            }
+        );
+
+    } catch (error) {
+        console.error('Error in upload process:', error);
+        alert('Error starting upload process. Please try again.');
+        resetButton();
+    }
+}

@@ -1,7 +1,32 @@
 function loadElement(elementId, filePath) {
     fetch(filePath)
         .then(response => response.text())
-        .then(text => document.getElementById(elementId).innerHTML = text);
+        .then(text => {
+            document.getElementById(elementId).innerHTML = text;
+
+            // If this is the navbar, initialize its functionality
+            if (elementId === 'navbar') {
+                // Check if navbar.js is already loaded
+                const existingScript = document.querySelector('script[src="scripts/navbar.js"]');
+                if (!existingScript) {
+                    // Load navbar.js script if not already loaded
+                    const script = document.createElement('script');
+                    script.src = 'scripts/navbar.js';
+                    script.onload = function () {
+                        // Initialize navbar functionality after script is loaded
+                        if (typeof initializeNavbar === 'function') {
+                            initializeNavbar();
+                        }
+                    };
+                    document.body.appendChild(script);
+                } else {
+                    // If script already exists, just reinitialize the navbar
+                    if (typeof initializeNavbar === 'function') {
+                        initializeNavbar();
+                    }
+                }
+            }
+        });
 }
 
 function loadChatPopup() {

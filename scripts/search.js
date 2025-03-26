@@ -181,7 +181,7 @@ function displaySearchResults(users) {
 
     users.forEach(user => {
         const userCard = document.createElement('div');
-        userCard.className = 'bg-white rounded-lg shadow-md overflow-hidden flex flex-col h-[600px]'; // Fixed height and flex column
+        userCard.className = 'bg-white rounded-lg shadow-md overflow-hidden flex flex-col h-[600px]';
 
         const matchLabel = user.matchScore > 0
             ? `<span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-sm">Strong Match</span>`
@@ -189,7 +189,8 @@ function displaySearchResults(users) {
 
         userCard.innerHTML = `
             <a href="profile.html?docID=${user.id}" class="block hover:opacity-90 transition-opacity h-48 flex-shrink-0">
-                <img src="images/Blank_pfp.png" alt="Profile" class="w-full h-full object-cover">
+                <img src="${user.profilePicture || 'images/Blank_pfp.png'}" alt="Profile" 
+                     class="w-full h-full object-cover">
             </a>
             <div class="p-4 flex flex-col flex-grow">
                 <div class="flex justify-between items-start mb-2">
