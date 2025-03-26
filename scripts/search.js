@@ -55,8 +55,8 @@ async function performSearch(searchTerm) {
     noResults.classList.add('hidden');
 
     try {
-        // Find users with matching skills
-        const matchingUsers = await findUsersWithSkill(searchTerm);
+        // Find users with matching skills or category
+        const matchingUsers = await findUsersWithSkillOrCategory(searchTerm);
 
         // Hide loading state
         loadingState.classList.add('hidden');
@@ -75,18 +75,27 @@ async function performSearch(searchTerm) {
     }
 }
 
-// Find users with matching skills
-async function findUsersWithSkill(searchTerm) {
+// Find users with matching skills or category
+async function findUsersWithSkillOrCategory(searchTerm) {
     const results = [];
     const processedUsers = new Set(); // To avoid duplicates
+    const searchTermLower = searchTerm.toLowerCase();
 
     try {
-        // Get all skills that match the search term
-        const skillsSnapshot = await db.collection('skills')
-            .get();
+        // First, check if search term matches a category
+        const categoriesSnapshot = await db.collection('Categories').get();
+        const matchingCategories = categoriesSnapshot.docs
+            .filter(doc => doc.data().category.toLowerCase().includes(searchTermLower))
+            .map(doc => doc.data().category);
 
+        // Get all skills that match either the search term directly or belong to matching categories
+        const skillsSnapshot = await db.collection('skills').get();
         const matchingSkills = skillsSnapshot.docs
-            .filter(doc => doc.data().skill.toLowerCase().includes(searchTerm.toLowerCase()))
+            .filter(doc => {
+                const skillData = doc.data();
+                return skillData.skill.toLowerCase().includes(searchTermLower) ||
+                    (skillData.categoryName && matchingCategories.includes(skillData.categoryName));
+            })
             .map(doc => doc.data().skill);
 
         // Find users with these skills
@@ -172,45 +181,51 @@ function displaySearchResults(users) {
 
     users.forEach(user => {
         const userCard = document.createElement('div');
-        userCard.className = 'bg-white rounded-lg shadow-md overflow-hidden';
+        userCard.className = 'bg-white rounded-lg shadow-md overflow-hidden flex flex-col h-[600px]'; // Fixed height and flex column
 
         const matchLabel = user.matchScore > 0
             ? `<span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-sm">Strong Match</span>`
             : '';
 
         userCard.innerHTML = `
-            <a href="profile.html?docID=${user.id}" class="block hover:opacity-90 transition-opacity">
-                <img src="images/Blank_pfp.png" alt="Profile" class="w-full h-48 object-cover">
+            <a href="profile.html?docID=${user.id}" class="block hover:opacity-90 transition-opacity h-48 flex-shrink-0">
+                <img src="images/Blank_pfp.png" alt="Profile" class="w-full h-full object-cover">
             </a>
-            <div class="p-4">
+            <div class="p-4 flex flex-col flex-grow">
                 <div class="flex justify-between items-start mb-2">
                     <h3 class="font-semibold text-lg">${user.email}</h3>
                     ${matchLabel}
                 </div>
                 
-                ${user.about_me ? `<p class="text-gray-600 mb-4">${user.about_me}</p>` : ''}
-                
-                ${user.skills.offering.length > 0 ? `
-                    <div class="mb-3">
-                        <h4 class="font-medium text-sm text-gray-500 mb-1">Offering:</h4>
-                        <div class="flex flex-wrap gap-1">
-                            ${user.skills.offering.map(skill => `
-                                <span class="bg-uranian_blue text-oxford_blue px-2 py-1 rounded-full text-sm">${skill}</span>
-                            `).join('')}
-                        </div>
+                ${user.about_me ? `
+                    <div class="mb-4 overflow-hidden">
+                        <p class="text-gray-600 line-clamp-3">${user.about_me}</p>
                     </div>
                 ` : ''}
                 
-                ${user.skills.requesting.length > 0 ? `
-                    <div class="mb-3">
-                        <h4 class="font-medium text-sm text-gray-500 mb-1">Looking for:</h4>
-                        <div class="flex flex-wrap gap-1">
-                            ${user.skills.requesting.map(skill => `
-                                <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded-full text-sm">${skill}</span>
-                            `).join('')}
+                <div class="flex-grow">
+                    ${user.skills.offering.length > 0 ? `
+                        <div class="mb-3">
+                            <h4 class="font-medium text-sm text-gray-500 mb-1">Offering:</h4>
+                            <div class="flex flex-wrap gap-1">
+                                ${user.skills.offering.map(skill => `
+                                    <span class="bg-uranian_blue text-oxford_blue px-2 py-1 rounded-full text-sm">${skill}</span>
+                                `).join('')}
+                            </div>
                         </div>
-                    </div>
-                ` : ''}
+                    ` : ''}
+                    
+                    ${user.skills.requesting.length > 0 ? `
+                        <div class="mb-3">
+                            <h4 class="font-medium text-sm text-gray-500 mb-1">Looking for:</h4>
+                            <div class="flex flex-wrap gap-1">
+                                ${user.skills.requesting.map(skill => `
+                                    <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded-full text-sm">${skill}</span>
+                                `).join('')}
+                            </div>
+                        </div>
+                    ` : ''}
+                </div>
                 
                 <a href="profile.html?docID=${user.id}" 
                    class="block text-center bg-polynesian_blue text-white px-4 py-2 rounded-full hover:bg-ruddy_blue transition duration-300 mt-4">
