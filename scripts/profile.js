@@ -4,13 +4,13 @@ console.log(currentUser)
 
 function populateUserInfo() {
     let params = new URL(window.location.href); // Get URL of search bar
-    let docID = params.searchParams.get("docID"); // Get value for key "docID"
-    console.log("ID" + docID);
+    let ID = params.searchParams.get("docID"); // Get value for key "docID"
+    console.log("ID " + ID);
     console.log("params " + params);
 
     // Fetch user profile information
     db.collection("users")
-        .doc(docID)
+        .doc(ID)
         .get()
         .then(doc => {
             let useraboutme = doc.data().about_me;
@@ -24,13 +24,14 @@ function populateUserInfo() {
             document.getElementById("email_user").innerHTML = "Profile belongs to " + useremail;
         });
 
-    // Fetch skills for the user
-    fetchUserSkills();  // Call the function to populate offers and requests
 }
 
 
     firebase.auth().onAuthStateChanged(user => {
         // Check if user is signed in:
+        let params = new URL(window.location.href); 
+        let ID = params.searchParams.get("docID"); 
+        console.log(ID)
         if (user.uid == ID) {
 
             //go to the correct user document by referencing to the user uid
@@ -39,6 +40,7 @@ function populateUserInfo() {
             currentUser.get()
                 .then(userDoc => {
                     //get the data fields of the user
+                    console.log("this is reaching me ")
                     let useraboutme = userDoc.data().about_me;
                     let usercredential = userDoc.data().credentials;
                     let userinterests = userDoc.data().interests;
