@@ -3,10 +3,12 @@ console.log(currentUser)
 
 
 function populateUserInfo() {
-    let params = new URL(window.location.href); //get URL of search bar
-    let ID = params.searchParams.get("docID"); //get value for key "id"
-    console.log("ID" + ID);
-    console.log("params " + params)
+    let params = new URL(window.location.href); // Get URL of search bar
+    let ID = params.searchParams.get("docID"); // Get value for key "docID"
+    console.log("ID " + ID);
+    console.log("params " + params);
+
+    // Fetch user profile information
     db.collection("users")
         .doc(ID)
         .get()
@@ -14,16 +16,22 @@ function populateUserInfo() {
             let useraboutme = doc.data().about_me;
             let usercredential = doc.data().credentials;
             let userinterests = doc.data().interests;
-            let useremail = doc.data().email
+            let useremail = doc.data().email;
 
             document.getElementById("paragraph_aboutme").innerHTML = useraboutme;
-            document.getElementById("paragraph_credentials").innerHTML = usercredential
+            document.getElementById("paragraph_credentials").innerHTML = usercredential;
             document.getElementById("paragraph_interests").innerHTML = userinterests;
             document.getElementById("email_user").innerHTML = "Profile belongs to " + useremail;
         });
 
+}
+
+
     firebase.auth().onAuthStateChanged(user => {
         // Check if user is signed in:
+        let params = new URL(window.location.href); 
+        let ID = params.searchParams.get("docID"); 
+        console.log(ID)
         if (user.uid == ID) {
 
             //go to the correct user document by referencing to the user uid
@@ -32,11 +40,20 @@ function populateUserInfo() {
             currentUser.get()
                 .then(userDoc => {
                     //get the data fields of the user
+                    console.log("this is reaching me ")
                     let useraboutme = userDoc.data().about_me;
                     let usercredential = userDoc.data().credentials;
                     let userinterests = userDoc.data().interests;
                     document.getElementById("save_btn").style.display = "block"
-                    document.getElementById("edit_btn").style.display = "block"
+
+                    document.getElementById("profile_aboutme").style.display = "block"
+                    document.getElementById("paragraph_aboutme").style.display = "none"
+
+                    document.getElementById("profile_credentials").style.display = "block"
+                    document.getElementById("paragraph_credentials").style.display = "none"
+
+                    document.getElementById("profile_interests").style.display = "block"
+                    document.getElementById("paragraph_interests").style.display = "none"
 
                     console.log(useraboutme)
                     console.log(usercredential)
@@ -62,42 +79,17 @@ function populateUserInfo() {
             console.log("No user is signed in");
         }
     });
-}
 
 //call the function to run it 
 populateUserInfo();
 
-function editUserInfo() {
-    document.getElementById("profile_aboutme").disabled = false
-    document.getElementById("profile_credentials").disabled = false
-    document.getElementById("profile_interests").disabled = false
-    document.getElementById("profile_interests").style.display = "block"
-    document.getElementById("profile_credentials").style.display = "block"
-    document.getElementById("profile_aboutme").style.display = "block"
-    document.getElementById("paragraph_interests").style.display = "none"
-    document.getElementById("paragraph_credentials").style.display = "none"
-    document.getElementById("paragraph_aboutme").style.display = "none"
-}
-
 function saveUserInfo() {
-    document.getElementById("profile_aboutme").disabled = true
-    document.getElementById("profile_credentials").disabled = true
-    document.getElementById("profile_interests").disabled = true
-
     useraboutme = document.getElementById('profile_aboutme').value;
     usercredential = document.getElementById('profile_credentials').value;
     userinterests = document.getElementById('profile_interests').value;
-    document.getElementById('paragraph_interests').innerHTML = userinterests
-    document.getElementById('paragraph_credentials').innerHTML = usercredential
-    document.getElementById('paragraph_aboutme').innerHTML = useraboutme
-
-    document.getElementById("profile_interests").style.display = "none"
-    document.getElementById("profile_credentials").style.display = "none"
-    document.getElementById("profile_aboutme").style.display = "none"
-
-    document.getElementById("paragraph_interests").style.display = "block"
-    document.getElementById("paragraph_credentials").style.display = "block"
-    document.getElementById("paragraph_aboutme").style.display = "block"
+    document.getElementById('paragraph_interests').value = userinterests
+    document.getElementById('paragraph_credentials').value = usercredential
+    document.getElementById('paragraph_aboutme').value = useraboutme
 
     currentUser.update({
         about_me: useraboutme,
@@ -108,6 +100,63 @@ function saveUserInfo() {
             console.log("Document successfully updated!");
         })
 }
+
+function fetchUserSkills() {
+    let params = new URL(window.location.href); 
+    let docID = params.searchParams.get("docID");
+    console.log("Fetching skills for user with docID:", docID);
+
+    db.collection("userSkills")
+        .where("direction", "==", "Offering")
+        .where("userID", "==", docID) 
+        .get()
+        .then((querySnapshot) => {
+            const offersDiv = document.getElementById("offers_div");
+            offersDiv.innerHTML = ''; 
+
+            querySnapshot.forEach((doc) => {
+                const data = doc.data();
+                const offerItem = createSkillCard(data, "Offering");
+                offersDiv.appendChild(offerItem);
+            });
+        })
+        .catch((error) => {
+            console.error("Error getting offering skills: ", error);
+        });
+
+    db.collection("userSkills")
+        .where("direction", "==", "Requesting")
+        .where("userID", "==", docID)
+        .get()
+        .then((querySnapshot) => {
+            const requestsDiv = document.getElementById("requests_div");
+            requestsDiv.innerHTML = '';
+
+            querySnapshot.forEach((doc) => {
+                const data = doc.data();
+                const requestItem = createSkillCard(data, "Requesting");
+                requestsDiv.appendChild(requestItem);
+            });
+        })
+        .catch((error) => {
+            console.error("Error getting requesting skills: ", error);
+        });
+}
+// Create the cards that appear underneth offering and requests :3
+function createSkillCard(data) {
+    const card = document.createElement("div");
+    card.classList.add("bg-white", "border", "rounded-lg", "shadow", "p-4", "mb-4", "md:w-50", "w-30", "mx-auto");
+
+    const skillTitle = document.createElement("h3");
+    skillTitle.classList.add("font-semibold", "text-center");
+    skillTitle.textContent = `${data.skill}`;
+
+    card.appendChild(skillTitle);
+
+    return card;
+}
+
+window.onload = fetchUserSkills;
 
 function addContact() {
     // Get the current user and profile user
