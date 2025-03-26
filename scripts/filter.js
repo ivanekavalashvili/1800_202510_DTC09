@@ -6,22 +6,25 @@
 //     "Music": ["Producing", "Piano", "Guitar", "Violin", "Drums"]
 // };
 
-// skills_to_be_added_to_database = {
-//     "Electronics": ["AI"],
-//     "Art": [],
-//     "Trades": [],
-//     "Languages": [],
-//     "Music": []
-// };
+skills_to_be_added_to_database = {
+    "Electronics": ["AI"],
+    "Art": [],
+    "Trades": [],
+    "Languages": [],
+    "Music": [],
+    "Gaming": ["Counter Strike Source", "Tetris", "Peggle (XBox360)", "Terraria", "Minecraft 1.8 PVP", "Competitive Draw.io"],
+    "Sports": []
+};
 
-// function add_skills_to_database() {
-//     for (skill in skills_to_be_added_to_database.Electronics) {
-//         db.collection("skills").add({
-//             categoryName: string(Electronics),
-//             skill: skills_to_be_added_to_database.Electronics[skill]
-//         })
-//     }
-// }
+category_add = "Gaming"
+function add_skills_to_database() {
+    for (skill in skills_to_be_added_to_database.Gaming) {
+        db.collection("skills").add({
+            categoryName: category_add,
+            skill: skills_to_be_added_to_database.Gaming[skill]
+        })
+    }
+}
 
 function list_categories_from_database(collection, user) {
     // lists each category from firebase
