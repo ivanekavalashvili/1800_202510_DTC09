@@ -112,7 +112,6 @@
     <section>
         <p class="text-2xl justify-center bg-white rounded-lg shadow p-6 py-10 px-[20%] text-center" id="email_user">
             Null</p>
-        <button onclick="populateUserSkills()">Test button</button>
     </section>
     <main class="grid grid-cols-1 md:grid-cols-2 gap-8 bg-grey-100 rounded-lg shadow p-6 py-10 px-[20%]">
         <section class="grid grid-cols-1 gap-8 py-10 px-[20%] justify-items-center">
@@ -148,23 +147,23 @@
                 <p class="text-xl m-w-[500px]" id="paragraph_interests" style="display: block"></p>
             </div>
         </section>
-        <section class="grid grid-cols-2 gap-8 bg-white rounded-lg shadow px-[10%] py-3 justify-items-center">
-            <div class="">
-                <button href="filter.html" class="text-2xl bg-uranian_blue text-oxford_blue px-8 py-3 rounded-full font-semibold 
-                                    hover:bg-ruddy_blue hover:text-yale_blue transition duration-300 my-3 mr-3"
-                    onclick="window.location='filter.html'">Offers
-                    <div id="offers_div">
-                    </div>
+        <section class="grid grid-cols-2 gap-8 bg-white rounded-lg shadow px-[10%] py-3 my-auto">
+            <div class="flex flex-col items-center justify-start">
+                <button href="filter.html" class="text-2xl bg-uranian_blue text-oxford_blue px-8 py-3 rounded-full font-semibold
+                        hover:bg-ruddy_blue hover:text-yale_blue transition duration-300 my-3 m-w-159"
+                    onclick="window.location='filter.html'">Offering</button>
+                <div id="offers_div" class="w-full">
+                </div>
             </div>
-            <div>
-                <button href="filter.html"
-                    class="text-2xl bg-uranian_blue text-oxford_blue px-8 py-3 rounded-full font-semibold 
-                                                    hover:bg-ruddy_blue hover:text-yale_blue transition duration-300 my-3 mr-3"
-                    onclick=" window.location='filter.html'">Requests
-                    <div id="requests_div">
-                    </div>
+            <div class="flex flex-col items-center justify-start">
+                <button href="filter.html" class="text-2xl bg-uranian_blue text-oxford_blue px-8 py-3 rounded-full font-semibold
+                        hover:bg-ruddy_blue hover:text-yale_blue transition duration-300 my-3"
+                    onclick="window.location='filter.html'">Requests</button>
+                <div id="requests_div" class="w-full">
+                </div>
             </div>
         </section>
+        
     </main>
     <!-- Footer -->
     <div id="footer"></div>
