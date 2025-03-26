@@ -113,21 +113,25 @@
         <p class="text-2xl justify-center bg-white rounded-lg shadow p-6 py-10 px-[20%] text-center" id="email_user">
             Null</p>
     </section>
-    <main class="grid grid-cols-1 md:grid-cols-2 gap-8 bg-grey-100 rounded-lg shadow p-6 py-10 px-[20%]">
-        <section class="grid grid-cols-1 gap-8 py-10 px-[20%] justify-items-center">
-            <div class="py-5 bg-white rounded-lg shadow p-2 justify-items-left mx-auto">
-                <img src="images/Blank_pfp.png" class="border border-black h-60 w-60 justify-items-center md:mx-auto">
-                <div class="flex flex-row pb-2 space-x-2 text-base pt-5">
+    <main class="bg-grey-100 rounded-lg shadow p-6 p-6 px-6">
+        <section class="flex justify-center items-center">
+            <div class="py-5 bg-white rounded-lg shadow p-2 items-center w-70 flex flex-col justify-center items-center">
+                <img src="images/Blank_pfp.png" class="border border-black h-60 w-60 mb-4">
+                <div class="flex flex-row space-x-2 text-base justify-center">
                     <button class="border border-red-800 bg-white hover:bg-red-800 rounded px-1"
                         onclick="reportbtn_open()">Report</button>
                     <button id="save_btn" style="display: none" class="border bg-white hover:bg-gray-400 rounded px-1"
-                        onclick="saveUserInfo()">Save
-                        changes</button>
+                        onclick="saveUserInfo()">Save changes</button>
                     <button id="chat_btn"
                         class="border border-polynesian_blue bg-white hover:bg-polynesian_blue hover:text-white rounded px-2"
                         onclick="addContact()">Chat with me</button>
                 </div>
             </div>
+            
+        </div>
+    </section>
+    <article class="grid grid-cols-1 md:grid-cols-2 gap-8 bg-grey-100 rounded-lg shadow+ px-[20%]">
+        <section class="grid grid-cols-1 gap-8 py-10 px-[20%] justify-items-center">
             <div class="py-5 px-5 w-120 bg-white rounded-lg shadow p-6">
                 <p class="text-4xl pb-2 align-center">About me!</p>
                 <textarea class="text-xl w-110 border-2 border-uranian_blue  focus:border-oxford_blue" rows="9"
@@ -164,6 +168,7 @@
             </div>
         </section>
         
+    </article>
     </main>
     <!-- Footer -->
     <div id="footer"></div>
