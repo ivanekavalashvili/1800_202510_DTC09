@@ -1,6 +1,4 @@
 // Get DOM elements
-const searchInput = document.getElementById('search-input');
-const searchButton = document.getElementById('search-button');
 const searchResults = document.getElementById('search-results');
 const loadingState = document.getElementById('loading-state');
 const noResults = document.getElementById('no-results');
@@ -16,8 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const urlParams = new URLSearchParams(window.location.search);
     const searchTerm = urlParams.get('q');
     if (searchTerm) {
-        searchInput.value = searchTerm;
-        performSearch();
+        performSearch(searchTerm);
     }
 });
 
@@ -48,21 +45,8 @@ async function loadCurrentUserSkills(userId) {
     }
 }
 
-// Handle search input via button click
-searchButton.addEventListener('click', () => {
-    performSearch();
-});
-
-// Handle search input via Enter key
-searchInput.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') {
-        performSearch();
-    }
-});
-
 // Main search function
-async function performSearch() {
-    const searchTerm = searchInput.value.trim().toLowerCase();
+async function performSearch(searchTerm) {
     if (!searchTerm) return;
 
     // Show loading state
@@ -102,7 +86,7 @@ async function findUsersWithSkill(searchTerm) {
             .get();
 
         const matchingSkills = skillsSnapshot.docs
-            .filter(doc => doc.data().skill.toLowerCase().includes(searchTerm))
+            .filter(doc => doc.data().skill.toLowerCase().includes(searchTerm.toLowerCase()))
             .map(doc => doc.data().skill);
 
         // Find users with these skills
@@ -195,7 +179,9 @@ function displaySearchResults(users) {
             : '';
 
         userCard.innerHTML = `
-            <img src="images/Blank_pfp.png" alt="Profile" class="w-full h-48 object-cover">
+            <a href="profile.html?docID=${user.id}" class="block hover:opacity-90 transition-opacity">
+                <img src="images/Blank_pfp.png" alt="Profile" class="w-full h-48 object-cover">
+            </a>
             <div class="p-4">
                 <div class="flex justify-between items-start mb-2">
                     <h3 class="font-semibold text-lg">${user.email}</h3>
