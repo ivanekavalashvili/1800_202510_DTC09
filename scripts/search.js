@@ -1,15 +1,14 @@
-// Get DOM elements
 const searchResults = document.getElementById('search-results');
 const loadingState = document.getElementById('loading-state');
 const noResults = document.getElementById('no-results');
 
-// Current user's skills for matching
+
 let currentUserSkills = {
     offering: [],
     requesting: []
 };
 
-// Handle search term from URL when page loads
+
 document.addEventListener('DOMContentLoaded', () => {
     const urlParams = new URLSearchParams(window.location.search);
     const searchTerm = urlParams.get('q');
@@ -18,14 +17,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// Load current user's skills when authenticated
+
 auth.onAuthStateChanged(user => {
     if (user) {
         loadCurrentUserSkills(user.uid);
     }
 });
 
-// Load current user's skills from database
+
 async function loadCurrentUserSkills(userId) {
     try {
         const userSkillsSnapshot = await db.collection('userSkills')
@@ -45,20 +44,20 @@ async function loadCurrentUserSkills(userId) {
     }
 }
 
-// Main search function
+
 async function performSearch(searchTerm) {
     if (!searchTerm) return;
 
-    // Show loading state
+
     searchResults.innerHTML = '';
     loadingState.classList.remove('hidden');
     noResults.classList.add('hidden');
 
     try {
-        // Find users with matching skills or category
+
         const matchingUsers = await findUsersWithSkillOrCategory(searchTerm);
 
-        // Hide loading state
+
         loadingState.classList.add('hidden');
 
         if (matchingUsers.length === 0) {
@@ -66,31 +65,32 @@ async function performSearch(searchTerm) {
             return;
         }
 
-        // Display results
+
         displaySearchResults(matchingUsers);
     } catch (error) {
         console.error("Error performing search:", error);
         loadingState.classList.add('hidden');
-        // Could add error state UI here
+
     }
 }
 
-// Find users with matching skills or category
+
 async function findUsersWithSkillOrCategory(searchTerm) {
     const results = [];
-    const processedUsers = new Set(); // To avoid duplicates
+    const processedUsers = new Set();
     const searchTermLower = searchTerm.toLowerCase();
 
     try {
-        // First, check if search term matches a category
-        const categoriesSnapshot = await db.collection('Categories').get();
-        const matchingCategories = categoriesSnapshot.docs
+        const categoriesSnapshotPromise = db.collection('Categories').get();
+        const skillsSnapshotPromise = db.collection('skills').get();
+
+        const [categoriesData, skillsData] = await Promise.all([categoriesSnapshotPromise, skillsSnapshotPromise]);
+
+        const matchingCategories = categoriesData.docs
             .filter(doc => doc.data().category.toLowerCase().includes(searchTermLower))
             .map(doc => doc.data().category);
 
-        // Get all skills that match either the search term directly or belong to matching categories
-        const skillsSnapshot = await db.collection('skills').get();
-        const matchingSkills = skillsSnapshot.docs
+        const matchingSkills = skillsData.docs
             .filter(doc => {
                 const skillData = doc.data();
                 return skillData.skill.toLowerCase().includes(searchTermLower) ||
@@ -98,55 +98,66 @@ async function findUsersWithSkillOrCategory(searchTerm) {
             })
             .map(doc => doc.data().skill);
 
-        // Find users with these skills
-        for (const skill of matchingSkills) {
-            const userSkillsSnapshot = await db.collection('userSkills')
+        const userSkillPromises = matchingSkills.map(skill =>
+            db.collection('userSkills')
                 .where('skill', '==', skill)
-                .get();
+                .get()
+        );
 
-            for (const userSkill of userSkillsSnapshot.docs) {
+        const userSkillsSnapshots = await Promise.all(userSkillPromises);
+
+        const userPromises = [];
+
+        for (const userSkillsSnapshot of userSkillsSnapshots) {
+            userSkillsSnapshot.docs.forEach(userSkill => {
                 const userId = userSkill.data().userID;
 
-                // Skip if we've already processed this user
-                if (processedUsers.has(userId)) continue;
+                if (processedUsers.has(userId)) return;
                 processedUsers.add(userId);
 
-                // Get user details
-                const userDoc = await db.collection('users').doc(userId).get();
-                if (!userDoc.exists) continue;
-
-                // Get all skills for this user
-                const userSkillsSnapshot = await db.collection('userSkills')
+                const userDocPromise = db.collection('users').doc(userId).get();
+                const userSkillsSnapshotPromise = db.collection('userSkills')
                     .where('userID', '==', userId)
                     .get();
 
-                const userSkills = {
-                    offering: [],
-                    requesting: []
-                };
+                userPromises.push(
+                    (async () => {
+                        const [userDoc, userSkillsSnapshot] = await Promise.all([userDocPromise, userSkillsSnapshotPromise]);
 
-                userSkillsSnapshot.forEach(doc => {
-                    const data = doc.data();
-                    if (data.direction === 'Offering') {
-                        userSkills.offering.push(data.skill);
-                    } else if (data.direction === 'Requesting') {
-                        userSkills.requesting.push(data.skill);
-                    }
-                });
+                        if (!userDoc.exists) return null;
 
-                // Calculate match score
-                const matchScore = calculateMatchScore(userSkills);
+                        const userSkills = {
+                            offering: [],
+                            requesting: []
+                        };
 
-                results.push({
-                    id: userId,
-                    ...userDoc.data(),
-                    skills: userSkills,
-                    matchScore
-                });
-            }
+                        userSkillsSnapshot.forEach(doc => {
+                            const data = doc.data();
+                            if (data.direction === 'Offering') {
+                                userSkills.offering.push(data.skill);
+                            } else if (data.direction === 'Requesting') {
+                                userSkills.requesting.push(data.skill);
+                            }
+                        });
+
+                        const matchScore = calculateMatchScore(userSkills);
+
+                        return {
+                            id: userId,
+                            ...userDoc.data(),
+                            skills: userSkills,
+                            matchScore
+                        };
+                    })()
+                );
+            });
         }
 
-        // Sort results by match score
+        const users = await Promise.all(userPromises);
+        const validUsers = users.filter(user => user !== null);
+
+        results.push(...validUsers);
+
         return results.sort((a, b) => b.matchScore - a.matchScore);
     } catch (error) {
         console.error("Error finding users:", error);
@@ -154,28 +165,28 @@ async function findUsersWithSkillOrCategory(searchTerm) {
     }
 }
 
-// Calculate match score based on skill overlap
+
 function calculateMatchScore(userSkills) {
     let score = 0;
 
-    // Points for skills they offer that we want
+
     for (const skill of userSkills.offering) {
         if (currentUserSkills.requesting.includes(skill)) {
-            score += 2; // Higher weight for direct matches
+            score += 2;
         }
     }
 
-    // Points for skills they want that we offer
+
     for (const skill of userSkills.requesting) {
         if (currentUserSkills.offering.includes(skill)) {
-            score += 2; // Higher weight for direct matches
+            score += 2;
         }
     }
 
     return score;
 }
 
-// Display search results in the UI
+
 function displaySearchResults(users) {
     searchResults.innerHTML = '';
 
@@ -237,4 +248,4 @@ function displaySearchResults(users) {
 
         searchResults.appendChild(userCard);
     });
-} 
+}
