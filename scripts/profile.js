@@ -35,7 +35,7 @@ function populateUserInfo() {
         if (user && user.uid == ID) {
             // Show upload button only on own profile
             document.getElementById('upload-button').style.display = 'block';
-
+            console.log('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')
             currentUser = db.collection("users").doc(user.uid);
             currentUser.get()
                 .then(userDoc => {
@@ -45,7 +45,7 @@ function populateUserInfo() {
                     let profilePicture = userDoc.data().profilePicture;
 
                     // Changing displays for owner of profile or vistior of profile
-                    document.getElementById("save_btn").style.display = "block";
+                    console.log('This is actived')
                     document.getElementById("profile_aboutme").style.display = "block";
                     document.getElementById("paragraph_aboutme").style.display = "none";
                     document.getElementById("profile_credentials").style.display = "block";
@@ -84,7 +84,7 @@ firebase.auth().onAuthStateChanged(user => {
     let ID = params.searchParams.get("docID");
     console.log(ID)
     if (user.uid == ID) {
-
+        document.getElementById('upload-button').style.display = 'block';
         //go to the correct user document by referencing to the user uid
         currentUser = db.collection("users").doc(user.uid)
         //get the document for current user.
@@ -95,7 +95,6 @@ firebase.auth().onAuthStateChanged(user => {
                 let useraboutme = userDoc.data().about_me;
                 let usercredential = userDoc.data().credentials;
                 let userinterests = userDoc.data().interests;
-                document.getElementById("save_btn").style.display = "block"
 
                 document.getElementById("profile_aboutme").style.display = "block"
                 document.getElementById("paragraph_aboutme").style.display = "none"
