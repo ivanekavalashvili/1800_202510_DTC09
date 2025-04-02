@@ -24,11 +24,9 @@ Developed for the 1800 Projects 1 course at BCIT, applying User-Centred Design p
 ---
 
 ## Usage
-####change this once hosted****
-Example:
-1. Open your browser and visit `http://localhost:3000`.
-2. Create a profile and 
-3. View the weather information displayed on the screen.
+1. Open your browser and visit `http://localhost:3000`. ####change this once hosted****
+2. Create a profile and add the skills you want to learn and the ones you want to offer.
+3. search for the skills you want to learn and connect with real people who have what you want and want what you have.
 
 ---
 
