@@ -1,5 +1,6 @@
 .DS_Store
 *.logs
 node_modules/
-.vscode/
+.vscode/*
+!.vscode/settings.json
 firebaseAPI_dtc09.js
