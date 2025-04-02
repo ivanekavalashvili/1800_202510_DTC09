@@ -46,26 +46,6 @@
     <!-- Navbar -->
     <div id="navbar"></div>
 
-    <!-- Hero Section -->
-    <!-- <header class="relative overflow-hidden">
-        <div
-            class="animated-background absolute inset-0 bg-gradient-to-r from-yale_blue via-polynesian_blue to-ruddy_blue">
-        </div>
-        <div class="relative max-w-7xl mx-auto py-24 px-4 sm:px-6 lg:px-8 text-center">
-            <h1 class="text-5xl font-bold text-white mb-6">It's Barter time</h1>
-            <div class="flex justify-center space-x-4">
-                <a href="filter.html"
-                    class="bg-uranian_blue text-oxford_blue px-8 py-3 rounded-full font-semibold hover:bg-ruddy_blue hover:text-yale_blue transition duration-300">
-                    Explore Offers
-                </a>
-                <a href="filter.html"
-                    class="bg-transparent border-2 border-uranian_blue text-uranian_blue px-8 py-3 rounded-full font-semibold hover:bg-uranian_blue hover:text-oxford_blue transition duration-300">
-                    Edit your filter
-                </a>
-            </div>
-        </div>
-    </header> -->
-
     <!-- Featured Categories -->
     <section class="px-5 py-10 animated-background bg-gradient-to-r from-yale_blue via-polynesian_blue to-ruddy_blue">
         <h1 class="text-center mb-8 text-white text-4xl font-bold">Your Categories</h1>
@@ -78,32 +58,8 @@
 
     <section class="max-w-7xl mx-auto px-4 py-12">
         <h2 class="text-3xl font-semibold text-center mb-8">Recommended contacts</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div class="bg-white rounded-lg shadow-md overflow-hidden">
-                <img src="https://picsum.photos/600/400" alt="Electronics" class="w-full h-48 object-cover">
-                <div class="p-4">
-                    <h3 class="font-semibold text-lg mb-2">Jonathan Barterbase</h3>
-                    <p class="text-gray-600">BARTERBASE!BARTERBASE!BARTERBASE!</p>
-                    <a href="profile.html?docID=bJxf299zrjgpZHxleBlkbhwAUDk2"
-                        class="text-polynesian_blue hover:text-ruddy_blue">Explore Electronics →</a>
-                </div>
-            </div>
-            <div class="bg-white rounded-lg shadow-md overflow-hidden">
-                <img src="https://picsum.photos/600/400" alt="Art & Design" class="w-full h-48 object-cover">
-                <div class="p-4">
-                    <h3 class="font-semibold text-lg mb-2">Art & Design</h3>
-                    <p class="text-gray-600">Barter creative services, handmade crafts, and artistic talents.</p>
-                    <a href="filter.html" class="text-polynesian_blue hover:text-ruddy_blue">Discover Art & Design →</a>
-                </div>
-            </div>
-            <div class="bg-white rounded-lg shadow-md overflow-hidden">
-                <img src="https://picsum.photos/600/400" alt="Services" class="w-full h-48 object-cover">
-                <div class="p-4">
-                    <h3 class="font-semibold text-lg mb-2">Services</h3>
-                    <p class="text-gray-600">Offer your expertise in exchange for other valuable services.</p>
-                    <a href="filter.html" class="text-polynesian_blue hover:text-ruddy_blue">Find Services →</a>
-                </div>
-            </div>
+        <div id="recommended-contacts" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Recommended contacts will be dynamically loaded here -->
         </div>
     </section>
 
@@ -113,133 +69,10 @@
     <!-- Firebase initialization -->
     <script src="scripts/firebaseAPI_dtc09.js"></script>
     <script src="scripts/script.js"></script>
+    <script src="scripts/main.js"></script>
 
     <!-- Load skeleton last so it can inject chat after page content -->
     <script src="elements/skeleton.js"></script>
-
-    <script>
-        // Function to get random categories
-        function getRandomCategories(categories, count) {
-            const shuffled = [...categories].sort(() => 0.5 - Math.random());
-            return shuffled.slice(0, count);
-        }
-
-        // Function to get user's skills and show relevant categories
-        function loadUserCategories() {
-            const categoriesContainer = document.getElementById('categories-container');
-
-            // Get current user
-            const user = firebase.auth().currentUser;
-
-            // Define all available categories with their images
-            const allCategories = {
-                'Electronics': 'electronics.jpg',
-                'Art & Design': 'art.jpg',
-                'Music': 'music.jpg',
-                'Gaming': 'gaming.jpg',
-                'Languages': 'languages.jpg',
-                'Sports': 'sports.jpg',
-                'Trades': 'trades.jpg'
-            };
-
-            if (user) {
-                // User is logged in, get their skills
-                db.collection("users").doc(user.uid).get()
-                    .then((doc) => {
-                        if (doc.exists) {
-                            const userData = doc.data();
-                            const skillsLookingFor = userData.skillsLookingFor || [];
-                            console.log("User skills:", skillsLookingFor); // Debug log
-
-                            // Filter categories based on user's skills
-                            const relevantCategories = Object.entries(allCategories).filter(([category]) => {
-                                // Convert category to lowercase for case-insensitive matching
-                                const categoryLower = category.toLowerCase();
-                                return skillsLookingFor.some(skill => {
-                                    const skillLower = skill.toLowerCase();
-                                    // Check if the skill is related to the category
-                                    return categoryLower.includes(skillLower) ||
-                                        skillLower.includes(categoryLower) ||
-                                        // Add specific skill-category mappings
-                                        (categoryLower === 'languages' && ['french', 'spanish', 'german', 'english', 'language', 'languages'].includes(skillLower)) ||
-                                        (categoryLower === 'electronics' && ['electronics', 'computer', 'laptop', 'phone', 'gadget'].includes(skillLower)) ||
-                                        (categoryLower === 'art & design' && ['art', 'design', 'drawing', 'painting', 'graphic design'].includes(skillLower)) ||
-                                        (categoryLower === 'music' && ['music', 'guitar', 'piano', 'singing', 'instrument'].includes(skillLower)) ||
-                                        (categoryLower === 'gaming' && ['gaming', 'game', 'gamer', 'console', 'pc gaming'].includes(skillLower)) ||
-                                        (categoryLower === 'sports' && ['sports', 'fitness', 'workout', 'exercise', 'athletic'].includes(skillLower)) ||
-                                        (categoryLower === 'trades' && ['trades', 'construction', 'plumbing', 'electrical', 'carpentry'].includes(skillLower));
-                                });
-                            });
-
-                            console.log("Relevant categories:", relevantCategories.map(([cat]) => cat)); // Debug log
-
-                            let categoriesToShow;
-                            if (relevantCategories.length === 0) {
-                                // No relevant categories found or less than 3, show random categories
-                                categoriesToShow = getRandomCategories(Object.entries(allCategories), 3);
-                            } else {
-                                // Sort relevant categories by relevance (most relevant first)
-                                categoriesToShow = relevantCategories
-                                    .sort((a, b) => {
-                                        const aRelevance = skillsLookingFor.filter(skill =>
-                                            a[0].toLowerCase().includes(skill.toLowerCase()) ||
-                                            skill.toLowerCase().includes(a[0].toLowerCase())
-                                        ).length;
-                                        const bRelevance = skillsLookingFor.filter(skill =>
-                                            b[0].toLowerCase().includes(skill.toLowerCase()) ||
-                                            skill.toLowerCase().includes(b[0].toLowerCase())
-                                        ).length;
-                                        return bRelevance - aRelevance;
-                                    })
-                                    .slice(0, 3);
-                            }
-
-                            displayCategories(categoriesToShow);
-                        }
-                    })
-                    .catch((error) => {
-                        console.error("Error getting user data:", error);
-                        displayCategories(getRandomCategories(Object.entries(allCategories), 3));
-                    });
-            } else {
-                // No user logged in, show 3 random categories
-                displayCategories(getRandomCategories(Object.entries(allCategories), 3));
-            }
-        }
-
-        // Function to display categories
-        function displayCategories(categories) {
-            const categoriesContainer = document.getElementById('categories-container');
-
-            // Clear existing content
-            categoriesContainer.innerHTML = '';
-
-            // Add category cards
-            categories.forEach(([category, image]) => {
-                const categoryCard = document.createElement('div');
-                categoryCard.className = 'bg-white rounded-lg shadow-md overflow-hidden transform transition duration-300 hover:scale-[1.02] cursor-pointer';
-                categoryCard.onclick = () => window.location.href = `filter.html?category=${encodeURIComponent(category)}`;
-                categoryCard.innerHTML = `
-                    <img src="images/${image}" alt="${category}" class="w-full h-48 object-cover">
-                    <div class="p-4">
-                        <h3 class="font-semibold text-lg mb-2">${category}</h3>
-                        <p class="text-gray-600">Explore ${category.toLowerCase()} related skills and services.</p>
-                        <a href="filter.html?category=${encodeURIComponent(category)}" 
-                           class="text-polynesian_blue hover:text-ruddy_blue inline-block mt-2"
-                           onclick="event.stopPropagation()">
-                            Explore ${category} →
-                        </a>
-                    </div>
-                `;
-                categoriesContainer.appendChild(categoryCard);
-            });
-        }
-
-        // Load categories when the page loads
-        document.addEventListener('DOMContentLoaded', function () {
-            loadUserCategories();
-        });
-    </script>
 </body>
 
 </html>

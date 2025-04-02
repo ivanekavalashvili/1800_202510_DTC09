@@ -310,10 +310,18 @@ body {
     transition: all .4s ease-in;
 }
 
-.btn-login {
+.btn-login,
+.btn-signup {
     color: #fbfdff;
     background: var(--uranian-blue);
     transform: translateX(-30%);
+    transition: all 0.3s ease;
+}
+
+.btn-login.fields-filled,
+.btn-signup.fields-filled {
+    background: var(--polynesian-blue);
+    transform: translateX(0);
 }
 
 .btn-signup {
