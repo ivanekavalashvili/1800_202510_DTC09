@@ -4,6 +4,8 @@
 //     "Trades": ["Machenery", "Carpentry", "Plumbing"],
 //     "Languages": ["English", "Mandarin Chinese", "Spanish", "Hindi", "Portuguese", "Bengali", "Russian", "Japanese", "Punjabi", "Vietnamese", "Cantonese", "Korean", "French", "German",],
 //     "Music": ["Producing", "Piano", "Guitar", "Violin", "Drums"]
+//     "Gaming": ["Counter Strike Source", "Tetris", "Peggle (XBox360)", "Terraria", "Minecraft 1.8 PVP", "Competitive Draw.io"],
+//     "Sports": ["Hockey", "Baseball", "Lacrosse", "Golf", "American Football", "Soccer", "Rugby", "Basketball", "Curling", "Croquet", "Ringette", "Ultimate Frisbee", "Disc Golf", "Tennis", "Badminton", "Volleyball", "Table Tennis/ Ping Pong", "Skiing", "Snowboarding", "Running", "Track and field", "Pickle ball", "Rock climbing", "Bouldering", "Power lifting", "Body building", "Calesthenics", "Weight lifting", "Sumo Wrestling", "Fencing", "Martial arts", "Wrestlig", "Tai Chi"]
 // };
 
 skills_to_be_added_to_database = {
@@ -12,16 +14,15 @@ skills_to_be_added_to_database = {
     "Trades": [],
     "Languages": [],
     "Music": [],
-    "Gaming": ["Counter Strike Source", "Tetris", "Peggle (XBox360)", "Terraria", "Minecraft 1.8 PVP", "Competitive Draw.io"],
+    "Gaming": [],
     "Sports": []
 };
 
-category_add = "Gaming"
 function add_skills_to_database() {
-    for (skill in skills_to_be_added_to_database.Gaming) {
+    for (skill in skills_to_be_added_to_database.Sports) {
         db.collection("skills").add({
-            categoryName: category_add,
-            skill: skills_to_be_added_to_database.Gaming[skill]
+            categoryName: "Sports",
+            skill: skills_to_be_added_to_database.Sports[skill]
         })
     }
 }

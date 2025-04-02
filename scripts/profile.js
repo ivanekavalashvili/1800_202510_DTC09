@@ -24,6 +24,7 @@ function populateUserInfo() {
                 document.getElementById("profile-image").src = profilePicture;
             }
 
+            // Placing data from firestore into the paragraphs from profile.html
             document.getElementById("paragraph_aboutme").innerHTML = useraboutme;
             document.getElementById("paragraph_credentials").innerHTML = usercredential;
             document.getElementById("paragraph_interests").innerHTML = userinterests;
@@ -34,7 +35,7 @@ function populateUserInfo() {
         if (user && user.uid == ID) {
             // Show upload button only on own profile
             document.getElementById('upload-button').style.display = 'block';
-
+            console.log('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')
             currentUser = db.collection("users").doc(user.uid);
             currentUser.get()
                 .then(userDoc => {
@@ -43,7 +44,8 @@ function populateUserInfo() {
                     let userinterests = userDoc.data().interests;
                     let profilePicture = userDoc.data().profilePicture;
 
-                    document.getElementById("save_btn").style.display = "block";
+                    // Changing displays for owner of profile or vistior of profile
+                    console.log('This is actived')
                     document.getElementById("profile_aboutme").style.display = "block";
                     document.getElementById("paragraph_aboutme").style.display = "none";
                     document.getElementById("profile_credentials").style.display = "block";
@@ -82,7 +84,7 @@ firebase.auth().onAuthStateChanged(user => {
     let ID = params.searchParams.get("docID");
     console.log(ID)
     if (user.uid == ID) {
-
+        document.getElementById('upload-button').style.display = 'block';
         //go to the correct user document by referencing to the user uid
         currentUser = db.collection("users").doc(user.uid)
         //get the document for current user.
@@ -93,7 +95,6 @@ firebase.auth().onAuthStateChanged(user => {
                 let useraboutme = userDoc.data().about_me;
                 let usercredential = userDoc.data().credentials;
                 let userinterests = userDoc.data().interests;
-                document.getElementById("save_btn").style.display = "block"
 
                 document.getElementById("profile_aboutme").style.display = "block"
                 document.getElementById("paragraph_aboutme").style.display = "none"
@@ -133,6 +134,7 @@ firebase.auth().onAuthStateChanged(user => {
 populateUserInfo();
 
 function saveUserInfo() {
+    // Data from editied textareas are stored to a variable
     useraboutme = document.getElementById('profile_aboutme').value;
     usercredential = document.getElementById('profile_credentials').value;
     userinterests = document.getElementById('profile_interests').value;
@@ -140,6 +142,7 @@ function saveUserInfo() {
     document.getElementById('paragraph_credentials').value = usercredential
     document.getElementById('paragraph_aboutme').value = useraboutme
 
+    // Data updated into firstore
     currentUser.update({
         about_me: useraboutme,
         credentials: usercredential,
@@ -155,6 +158,7 @@ function fetchUserSkills() {
     let docID = params.searchParams.get("docID");
     console.log("Fetching skills for user with docID:", docID);
 
+    // Grab each skill that has the users ID in it for the offering div
     db.collection("userSkills")
         .where("direction", "==", "Offering")
         .where("userID", "==", docID)
@@ -163,6 +167,7 @@ function fetchUserSkills() {
             const offersDiv = document.getElementById("offers_div");
             offersDiv.innerHTML = '';
 
+            // for every document that has the user ID it will take the data from the document
             querySnapshot.forEach((doc) => {
                 const data = doc.data();
                 const offerItem = createSkillCard(data, "Offering");
@@ -173,6 +178,7 @@ function fetchUserSkills() {
             console.error("Error getting offering skills: ", error);
         });
 
+    // Grab each skill that has the users ID in it for the requesting div
     db.collection("userSkills")
         .where("direction", "==", "Requesting")
         .where("userID", "==", docID)
@@ -181,6 +187,7 @@ function fetchUserSkills() {
             const requestsDiv = document.getElementById("requests_div");
             requestsDiv.innerHTML = '';
 
+            // for every document that has the user ID it will take the data from the document
             querySnapshot.forEach((doc) => {
                 const data = doc.data();
                 const requestItem = createSkillCard(data, "Requesting");
