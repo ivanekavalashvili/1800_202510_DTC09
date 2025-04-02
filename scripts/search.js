@@ -220,9 +220,12 @@ function displaySearchResults(users) {
                         <div class="mb-3">
                             <h4 class="font-medium text-sm text-gray-500 mb-1">Offering:</h4>
                             <div class="flex flex-wrap gap-1">
-                                ${user.skills.offering.map(skill => `
+                                ${user.skills.offering.slice(0, 4).map(skill => `
                                     <span class="bg-uranian_blue text-oxford_blue px-2 py-1 rounded-full text-sm">${skill}</span>
                                 `).join('')}
+                                ${user.skills.offering.length > 4 ? `
+                                    <span class="bg-uranian_blue text-oxford_blue px-2 py-1 rounded-full text-sm">+${user.skills.offering.length - 4} more</span>
+                                ` : ''}
                             </div>
                         </div>
                     ` : ''}
@@ -231,9 +234,12 @@ function displaySearchResults(users) {
                         <div class="mb-3">
                             <h4 class="font-medium text-sm text-gray-500 mb-1">Looking for:</h4>
                             <div class="flex flex-wrap gap-1">
-                                ${user.skills.requesting.map(skill => `
+                                ${user.skills.requesting.slice(0, 4).map(skill => `
                                     <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded-full text-sm">${skill}</span>
                                 `).join('')}
+                                ${user.skills.requesting.length > 4 ? `
+                                    <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded-full text-sm">+${user.skills.requesting.length - 4} more</span>
+                                ` : ''}
                             </div>
                         </div>
                     ` : ''}
