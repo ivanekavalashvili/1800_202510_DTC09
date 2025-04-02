@@ -112,12 +112,12 @@
         </main>
     </main>
     <section class="px-6 pt-6">
-        <p class="text-2xl justify-center bg-white rounded-lg shadow p-6 py-10 text-center" id="email_user">
-            Null</p>
     </section>
     <main class="bg-grey-100 rounded-lg shadow p-6 px-6">
         <section class="flex justify-center items-center">
             <div class="py-5 bg-white rounded-lg shadow p-2 items-center w-70 flex flex-col justify-center">
+                <p class="text-xl justify-center pb-4 text-center" id="email_user">
+                    Null</p>
                 <div class="relative">
                     <img id="profile-image" src="images/Blank_pfp.png"
                         class="border border-black h-60 w-60 mb-4 object-cover">
@@ -144,22 +144,33 @@
         <article class="grid grid-cols-1 items-start md:grid-cols-2 gap-4 bg-grey-100 rounded-lg shadow+ sm:px-[20%]">
             <section class="grid grid-cols-1 gap-8 py-6 sm:px-[20%] justify-items-center">
                 <div class="py-10 px-5 h-95 max-sm:w-full sm:w-120 bg-white rounded-lg shadow p-6">
-                    <p class="text-4xl pb-2 align-center">About me!</p>
+                    <p class="text-4xl pb-2">About me!</p>
                     <textarea class="text-xl w-full border-2 border-uranian_blue  focus:border-oxford_blue" rows="9"
-                        style="display: none" maxlength="300" id="profile_aboutme" onfocusout="saveUserInfo()"></textarea>
+                        style="display: none" maxlength="300" id="profile_aboutme"
+                        onfocusout="saveUserInfoAboutme()"></textarea>
                     <p class="text-xl m-w-[500px]" id="paragraph_aboutme" style="display: block"></p>
+                    <p style="display: none;" id="savechanges_aboutme" class="text-xl pb-2 text-green-400">Saved changes
+                    </p>
                 </div>
                 <div class="py-10 px-5 h-95 max-sm:w-full sm:w-120 bg-white rounded-lg shadow p-6">
                     <p class="text-4xl pb-2">My Credentials!</p>
                     <textarea class="text-xl w-full border-2 border-uranian_blue  focus:border-oxford_blue" rows="9"
-                        style="display: none" maxlength="300" id="profile_credentials" onfocusout="saveUserInfo()"></textarea>
+                        style="display: none" maxlength="300" id="profile_credentials"
+                        onfocusout="saveUserInfoCredentials()"></textarea>
                     <p class="text-xl m-w-[500px]" id="paragraph_credentials" style="display: block"></p>
+                    <p style="display: none;" id="savechanges_credentials" class="text-xl pb-2 text-green-400">Saved
+                        changes
+                    </p>
                 </div>
                 <div class="py-10 px-5 h-95 max-sm:w-full sm:w-120 bg-white rounded-lg shadow p-6">
                     <p class="text-4xl pb-2">My Interests!</p>
                     <textarea class="text-xl w-full border-2 border-uranian_blue  focus:border-oxford_blue" rows="9"
-                        style="display: none" maxlength="300" id="profile_interests" onfocusout="saveUserInfo()"></textarea>
+                        style="display: none" maxlength="300" id="profile_interests"
+                        onfocusout="saveUserInfoInterests()"></textarea>
                     <p class="text-xl m-w-[500px]" id="paragraph_interests" style="display: block"></p>
+                    <p style="display: none;" id="savechanges_interests" class="text-xl pb-2 text-green-400">Saved
+                        changes
+                    </p>
                 </div>
             </section>
             <section

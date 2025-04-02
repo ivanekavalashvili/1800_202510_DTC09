@@ -28,7 +28,7 @@ function populateUserInfo() {
             document.getElementById("paragraph_aboutme").innerHTML = useraboutme;
             document.getElementById("paragraph_credentials").innerHTML = usercredential;
             document.getElementById("paragraph_interests").innerHTML = userinterests;
-            document.getElementById("email_user").innerHTML = "Profile belongs to " + useremail;
+            document.getElementById("email_user").innerHTML = useremail;
         });
 
     firebase.auth().onAuthStateChanged(user => {
@@ -133,6 +133,57 @@ firebase.auth().onAuthStateChanged(user => {
 //call the function to run it 
 populateUserInfo();
 
+function saveUserInfoAboutme() {
+    useraboutme = document.getElementById('profile_aboutme').value;
+    document.getElementById('paragraph_aboutme').value = useraboutme
+
+    currentUser.update({
+        about_me: useraboutme,
+    })
+        .then(() => {
+            console.log("Document successfully updated!");
+        })
+
+    document.getElementById('savechanges_aboutme').style.display = "block";
+    setTimeout(() => {
+        document.getElementById('savechanges_aboutme').style.display = "none";
+    }, 3000);
+}
+
+function saveUserInfoCredentials() {
+    usercredential = document.getElementById('profile_credentials').value;
+    document.getElementById('paragraph_credentials').value = usercredential
+
+    currentUser.update({
+        credentials: usercredential,
+    })
+        .then(() => {
+            console.log("Document successfully updated!");
+        })
+
+    document.getElementById('savechanges_credentials').style.display = "block";
+    setTimeout(() => {
+        document.getElementById('savechanges_credentials').style.display = "none";
+    }, 3000);
+}
+
+function saveUserInfoInterests() {
+    userinterests = document.getElementById('profile_interests').value;
+    document.getElementById('paragraph_interests').value = userinterests
+
+    currentUser.update({
+        interests: userinterests
+    })
+        .then(() => {
+            console.log("Document successfully updated!");
+        })
+
+    document.getElementById('savechanges_interests').style.display = "block";
+    setTimeout(() => {
+        document.getElementById('savechanges_interests').style.display = "none";
+    }, 3000);
+}
+
 function saveUserInfo() {
     // Data from editied textareas are stored to a variable
     useraboutme = document.getElementById('profile_aboutme').value;
@@ -143,6 +194,7 @@ function saveUserInfo() {
     document.getElementById('paragraph_aboutme').value = useraboutme
 
     // Data updated into firstore
+    displaysavedchangesAboutme()
     currentUser.update({
         about_me: useraboutme,
         credentials: usercredential,
