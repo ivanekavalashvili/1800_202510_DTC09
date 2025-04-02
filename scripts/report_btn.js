@@ -22,7 +22,10 @@ function reportbtn_confirm_close() {
         T.style.display = "block";
 
         firebase.auth().onAuthStateChanged((user) => {
-                if (user) {
+                let params = new URL(window.location.href);
+                let docID = params.searchParams.get("docID");
+                if (user != docID) {
+
                         let illegal_pfp = document.getElementById("illegal_pfp").checked; 
                         let illegal_content = document.getElementById("illegal_content").checked; 
                         let liar_btn = document.getElementById("liar_btn").checked; 
@@ -33,7 +36,7 @@ function reportbtn_confirm_close() {
                         console.log(liar_btn);
                         console.log(abusive_communcation);
 
-                        db.collection('reports').doc(user.uid).set({
+                        db.collection('reports').doc(docID).set({
                                 illegal_pfp: illegal_pfp,
                                 illegal_content: illegal_content,
                                 liar_btn: liar_btn,
