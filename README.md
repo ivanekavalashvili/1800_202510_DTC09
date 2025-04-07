@@ -61,13 +61,11 @@ project-name/
 
 ## Acknowledgments
 
-Example:
 - Code snippets for ___ algoirthm were adapted from resources such as [Stack Overflow](https://stackoverflow.com/) and [MDN Web Docs](https://developer.mozilla.org/).
 - Icons sourced from [FontAwesome](https://fontawesome.com/) and images from [Unsplash](https://unsplash.com/).
 
 ---
 
-## Limitations and Future Work
 ### Limitations
 
 Example:
@@ -81,12 +79,5 @@ Example:
 - Text complete for search
 - add tutorial for new users
 - Create a dark mode for better usability in low-light conditions.
-
----
-
-## License
-
-Example:
-This project is licensed under the MIT License. See the LICENSE file for details.
 
 
